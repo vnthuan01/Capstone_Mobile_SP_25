@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "wdp-mobile",
+    "slug": "wdp-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "wdpmobile",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.wdpmobile"
+    },
+    "android": {
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.wdpmobile"
+    },
+    "web": {
+      "output": "static",
+      "bundler": "metro"
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
