@@ -6,11 +6,15 @@ import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type TasksScreen = 'list' | 'detail' | 'update';
+type TasksScreenType = 'list' | 'detail' | 'update';
 
-export default function TasksListScreen() {
+interface TasksListScreenProps {
+    onBack?: () => void;
+}
+
+export default function TasksListScreen({ onBack }: TasksListScreenProps) {
     const { top, bottom } = useSafeAreaInsets();
-    const [currentScreen, setCurrentScreen] = useState<TasksScreen>('list');
+    const [currentScreen, setCurrentScreen] = useState<TasksScreenType>('list');
 
     if (currentScreen === 'detail') {
         return <ViewTasksScreen onBack={() => setCurrentScreen('list')} />;
@@ -27,10 +31,22 @@ export default function TasksListScreen() {
         >
             {/* Header */}
             <View className="bg-white px-4 py-4 shadow-sm">
-                <Text className="text-xl font-bold">Nhiệm vụ cứu trợ</Text>
-                <Text className="mt-1 text-sm text-text-secondary">
-                    Danh sách nhiệm vụ được giao
-                </Text>
+                <View className="flex-row items-center gap-3">
+                    {onBack && (
+                        <TouchableOpacity
+                            onPress={onBack}
+                            className="h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <Ionicons name="arrow-back" size={24} color="#111418" />
+                        </TouchableOpacity>
+                    )}
+                    <View>
+                        <Text className="text-xl font-bold">Nhiệm vụ cứu trợ</Text>
+                        <Text className="text-sm text-text-secondary">
+                            Danh sách nhiệm vụ được giao
+                        </Text>
+                    </View>
+                </View>
             </View>
 
             {/* Status Toggle */}

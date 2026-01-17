@@ -184,12 +184,12 @@ export default function ViewRequestRescueScreen({
             {/* Sticky Bottom Actions */}
             <View
                 style={{ paddingBottom: bottom + 16 }}
-                className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white p-4"
+                className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white/90 p-4"
             >
                 <View className="flex-col gap-3">
-                    <TouchableOpacity className="h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white">
-                        <Ionicons name="close-circle-outline" size={20} color="#6b7280" />
-                        <Text className="text-sm font-bold text-gray-500">
+                    <TouchableOpacity className="h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-red-500 bg-white">
+                        <Ionicons name="close-circle-outline" size={20} color="#ef4444" />
+                        <Text className="text-sm font-bold text-red-500">
                             Hủy yêu cầu cứu hộ
                         </Text>
                     </TouchableOpacity>
@@ -200,9 +200,9 @@ export default function ViewRequestRescueScreen({
             </View>
 
             {/* SOS Floating Button */}
-            <TouchableOpacity className="absolute bottom-28 right-4 z-50 h-14 w-14 items-center justify-center rounded-full bg-red-500 shadow-lg">
+            {/* <TouchableOpacity className="absolute bottom-28 right-4 z-50 h-14 w-14 items-center justify-center rounded-full bg-red-500 shadow-lg">
                 <Ionicons name="warning" size={28} color="#fff" />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 }

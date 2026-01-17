@@ -5,12 +5,16 @@ import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type RequestsScreen = 'list' | 'detail';
+type RequestsScreenType = 'list' | 'detail';
 
-export default function RequestsScreen() {
+interface RequestsScreenProps {
+    onBack?: () => void;
+}
+
+export default function RequestsScreen({ onBack }: RequestsScreenProps) {
     const { top, bottom } = useSafeAreaInsets();
     const [currentScreen, setCurrentScreen] =
-        useState<RequestsScreen>('list');
+        useState<RequestsScreenType>('list');
 
     if (currentScreen === 'detail') {
         return (
@@ -25,10 +29,22 @@ export default function RequestsScreen() {
         >
             {/* HEADER */}
             <View className="bg-white px-4 py-4 shadow-sm">
-                <Text className="text-xl font-bold">Theo dõi yêu cầu</Text>
-                <Text className="mt-1 text-sm text-text-secondary">
-                    Danh sách yêu cầu cứu trợ của bạn
-                </Text>
+                <View className="flex-row items-center gap-3">
+                    {onBack && (
+                        <TouchableOpacity
+                            onPress={onBack}
+                            className="h-10 w-10 items-center justify-center rounded-full"
+                        >
+                            <Ionicons name="arrow-back" size={24} color="#111418" />
+                        </TouchableOpacity>
+                    )}
+                    <View>
+                        <Text className="text-xl font-bold">Theo dõi yêu cầu</Text>
+                        <Text className="text-sm text-text-secondary">
+                            Danh sách yêu cầu cứu trợ của bạn
+                        </Text>
+                    </View>
+                </View>
             </View>
 
             {/* Active Request */}

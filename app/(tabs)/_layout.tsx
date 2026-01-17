@@ -3,30 +3,54 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { Platform, View } from 'react-native';
 
+const TAB_HEIGHT = Platform.OS === 'ios' ? 88 : 64;
+const ICON_SIZE = 24;
+
 export default function TabsLayout() {
   const user = useAuthStore((s) => s.user);
   const isVolunteer = user?.role === 'Volunteer';
 
+  /* ================= COMMON OPTIONS ================= */
+  const screenOptions = {
+    headerShown: false,
+    tabBarActiveTintColor: '#137fec',
+    tabBarInactiveTintColor: '#64748b',
+
+    tabBarLabelPosition: 'below-icon', // 🔥 ép layout ổn định
+    tabBarAllowFontScaling: false, // 🔥 không auto scale font
+
+    tabBarStyle: {
+      height: TAB_HEIGHT,
+      paddingTop: 6,
+      paddingBottom: Platform.OS === 'ios' ? 14 : 8,
+      borderTopWidth: 0.5,
+      overflow: 'visible',
+    },
+
+    tabBarItemStyle: {
+      paddingVertical: 4,
+    },
+
+    tabBarLabelStyle: {
+      fontSize: 12,
+      lineHeight: 16, // 🔥 tăng lineHeight
+      paddingBottom: 0,
+      includeFontPadding: false, // 🔥 ANDROID FIX
+      textAlignVertical: 'center',
+    },
+  } as const;
+
+
+  /* ================= VOLUNTEER ================= */
   if (isVolunteer) {
-    // Volunteer Tabs
     return (
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarActiveTintColor: '#137fec',
-          tabBarStyle: {
-            height: Platform.OS === 'ios' ? 88 : 64,
-            paddingBottom: Platform.OS === 'ios' ? 24 : 8,
-            paddingTop: 8,
-          },
-        }}
-      >
+      <Tabs screenOptions={screenOptions}>
         <Tabs.Screen
           name="index"
           options={{
             title: 'Trang chủ',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" size={size} color={color} />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="home-outline" size={ICON_SIZE} color={color} />
             ),
           }}
         />
@@ -35,8 +59,8 @@ export default function TabsLayout() {
           name="tasks"
           options={{
             title: 'Nhiệm vụ',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="list-outline" size={size} color={color} />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="list-outline" size={ICON_SIZE} color={color} />
             ),
           }}
         />
@@ -45,13 +69,13 @@ export default function TabsLayout() {
           name="profile"
           options={{
             title: 'Hồ sơ',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size} color={color} />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={ICON_SIZE} color={color} />
             ),
           }}
         />
 
-        {/* Hide user-specific screens */}
+        {/* hidden routes */}
         <Tabs.Screen name="home/user" options={{ href: null }} />
         <Tabs.Screen name="home/volunteer" options={{ href: null }} />
         <Tabs.Screen name="create-request" options={{ href: null }} />
@@ -60,48 +84,40 @@ export default function TabsLayout() {
     );
   }
 
-  // User Tabs
+  /* ================= USER ================= */
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: '#137fec',
-        tabBarStyle: {
-          height: Platform.OS === 'ios' ? 88 : 64,
-          paddingBottom: Platform.OS === 'ios' ? 24 : 8,
-          paddingTop: 8,
-        },
-      }}
-    >
+    <Tabs screenOptions={screenOptions}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Trang chủ',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="home-outline" size={ICON_SIZE} color={color} />
           ),
         }}
       />
 
+      {/* ===== FLOATING ACTION BUTTON ===== */}
       <Tabs.Screen
         name="create-request"
         options={{
           title: '',
+          tabBarLabel: () => null,
           tabBarIcon: ({ focused }) => (
             <View
               style={{
                 width: 56,
                 height: 56,
                 borderRadius: 28,
-                backgroundColor: focused ? '#137fec' : '#137fec',
+                backgroundColor: '#137fec',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: -20,
+                marginTop: -24,
                 shadowColor: '#137fec',
                 shadowOffset: { width: 0, height: 4 },
-                shadowOpacity: 0.3,
+                shadowOpacity: 0.35,
                 shadowRadius: 8,
-                elevation: 8,
+                elevation: 10,
               }}
             >
               <Ionicons name="add" size={32} color="#fff" />
@@ -114,13 +130,13 @@ export default function TabsLayout() {
         name="profile"
         options={{
           title: 'Hồ sơ',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-outline" size={ICON_SIZE} color={color} />
           ),
         }}
       />
 
-      {/* Hide volunteer-specific screens */}
+      {/* hidden routes */}
       <Tabs.Screen name="home/user" options={{ href: null }} />
       <Tabs.Screen name="home/volunteer" options={{ href: null }} />
       <Tabs.Screen name="tasks" options={{ href: null }} />
