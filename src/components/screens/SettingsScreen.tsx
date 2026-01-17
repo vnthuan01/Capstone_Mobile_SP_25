@@ -1,4 +1,5 @@
 import '@/global.css';
+import { THEME_COLORS, ThemeColor, useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
@@ -9,22 +10,15 @@ interface SettingsScreenProps {
     onBack?: () => void;
 }
 
-type ThemeColor = 'blue' | 'green' | 'purple' | 'orange';
-
-const THEME_COLORS: Record<ThemeColor, { name: string; color: string; bg: string }> = {
-    blue: { name: 'Xanh dương', color: '#137fec', bg: 'bg-blue-500' },
-    green: { name: 'Xanh lá', color: '#16a34a', bg: 'bg-green-500' },
-    purple: { name: 'Tím', color: '#9333ea', bg: 'bg-purple-500' },
-    orange: { name: 'Cam', color: '#ea580c', bg: 'bg-orange-500' },
-};
-
 export default function SettingsScreen({ onBack }: SettingsScreenProps) {
     const { top, bottom } = useSafeAreaInsets();
     const [notifications, setNotifications] = useState(true);
     const [soundEnabled, setSoundEnabled] = useState(true);
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     const [locationEnabled, setLocationEnabled] = useState(true);
-    const [selectedTheme, setSelectedTheme] = useState<ThemeColor>('blue');
+
+    const { themeColor, setThemeColor, getPrimaryColor } = useThemeStore();
+    const primaryColor = getPrimaryColor();
 
     useEffect(() => {
         loadSettings();
@@ -39,7 +33,6 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                 setSoundEnabled(parsed.soundEnabled ?? true);
                 setVibrationEnabled(parsed.vibrationEnabled ?? true);
                 setLocationEnabled(parsed.locationEnabled ?? true);
-                setSelectedTheme(parsed.selectedTheme ?? 'blue');
             }
         } catch (error) {
             console.log('Error loading settings:', error);
@@ -55,11 +48,6 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
         } catch (error) {
             console.log('Error saving settings:', error);
         }
-    };
-
-    const handleThemeChange = (theme: ThemeColor) => {
-        setSelectedTheme(theme);
-        saveSettings('selectedTheme', theme);
     };
 
     return (
@@ -94,22 +82,28 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                         {(Object.keys(THEME_COLORS) as ThemeColor[]).map((theme) => (
                             <TouchableOpacity
                                 key={theme}
-                                onPress={() => handleThemeChange(theme)}
-                                className={`flex-row items-center gap-2 rounded-full border-2 px-4 py-2 ${selectedTheme === theme
-                                    ? 'border-gray-800 bg-gray-50'
+                                onPress={() => setThemeColor(theme)}
+                                className={`flex-row items-center gap-2 rounded-full border-2 px-4 py-2 ${themeColor === theme
+                                    ? 'bg-gray-50'
                                     : 'border-gray-200'
                                     }`}
+                                style={{
+                                    borderColor: themeColor === theme ? THEME_COLORS[theme].color : '#e5e7eb'
+                                }}
                             >
                                 <View
-                                    className={`h-5 w-5 rounded-full ${THEME_COLORS[theme].bg}`}
+                                    className="h-5 w-5 rounded-full"
+                                    style={{ backgroundColor: THEME_COLORS[theme].color }}
                                 />
                                 <Text
-                                    className={`text-sm font-medium ${selectedTheme === theme ? 'text-gray-800' : 'text-gray-600'
-                                        }`}
+                                    className="text-sm font-medium"
+                                    style={{
+                                        color: themeColor === theme ? '#1f2937' : '#4b5563'
+                                    }}
                                 >
                                     {THEME_COLORS[theme].name}
                                 </Text>
-                                {selectedTheme === theme && (
+                                {themeColor === theme && (
                                     <Ionicons name="checkmark" size={16} color="#111418" />
                                 )}
                             </TouchableOpacity>
@@ -132,6 +126,7 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setNotifications(val);
                             saveSettings('notifications', val);
                         }}
+                        color={primaryColor}
                     />
 
                     <SettingToggle
@@ -143,6 +138,7 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setSoundEnabled(val);
                             saveSettings('soundEnabled', val);
                         }}
+                        color={primaryColor}
                     />
 
                     <SettingToggle
@@ -154,6 +150,7 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setVibrationEnabled(val);
                             saveSettings('vibrationEnabled', val);
                         }}
+                        color={primaryColor}
                     />
                 </View>
 
@@ -174,6 +171,7 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setLocationEnabled(val);
                             saveSettings('locationEnabled', val);
                         }}
+                        color={primaryColor}
                     />
                 </View>
 
@@ -189,18 +187,21 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                         icon="information-circle-outline"
                         title="Phiên bản"
                         value="1.0.0"
+                        color={primaryColor}
                     />
 
                     <SettingItem
                         icon="shield-checkmark-outline"
                         title="Chính sách bảo mật"
                         showArrow
+                        color={primaryColor}
                     />
 
                     <SettingItem
                         icon="document-text-outline"
                         title="Điều khoản sử dụng"
                         showArrow
+                        color={primaryColor}
                     />
                 </View>
 
@@ -239,18 +240,23 @@ function SettingToggle({
     subtitle,
     value,
     onValueChange,
+    color,
 }: {
     icon: keyof typeof Ionicons.glyphMap;
     title: string;
     subtitle: string;
     value: boolean;
     onValueChange: (value: boolean) => void;
+    color: string;
 }) {
     return (
         <View className="flex-row items-center justify-between border-b border-gray-100 px-4 py-4">
             <View className="flex-row flex-1 items-center gap-3">
-                <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <Ionicons name={icon} size={20} color="#137fec" />
+                <View
+                    className="h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: `${color}1A` }} // 10% opacity
+                >
+                    <Ionicons name={icon} size={20} color={color} />
                 </View>
                 <View className="flex-1">
                     <Text className="text-base font-medium">{title}</Text>
@@ -260,8 +266,8 @@ function SettingToggle({
             <Switch
                 value={value}
                 onValueChange={onValueChange}
-                trackColor={{ false: '#e5e7eb', true: '#93c5fd' }}
-                thumbColor={value ? '#137fec' : '#f4f3f4'}
+                trackColor={{ false: '#e5e7eb', true: `${color}80` }} // 50% opacity
+                thumbColor={value ? color : '#f4f3f4'}
             />
         </View>
     );
@@ -272,17 +278,22 @@ function SettingItem({
     title,
     value,
     showArrow,
+    color = '#137fec', // default color if not provided
 }: {
     icon: keyof typeof Ionicons.glyphMap;
     title: string;
     value?: string;
     showArrow?: boolean;
+    color?: string;
 }) {
     return (
         <TouchableOpacity className="flex-row items-center justify-between border-b border-gray-100 px-4 py-4">
             <View className="flex-row items-center gap-3">
-                <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <Ionicons name={icon} size={20} color="#137fec" />
+                <View
+                    className="h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: `${color}1A` }}
+                >
+                    <Ionicons name={icon} size={20} color={color} />
                 </View>
                 <Text className="text-base font-medium">{title}</Text>
             </View>

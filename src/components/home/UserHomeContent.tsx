@@ -24,7 +24,12 @@ export default function UserHomeContent() {
                         icon="location"
                         label="Theo dõi"
                         color="green"
-                        onPress={() => router.push('/requests')}
+                        onPress={() =>
+                            router.push({
+                                pathname: '/profile',
+                                params: { view: 'requests' },
+                            })
+                        }
                     />
                 </View>
             </View>
@@ -33,7 +38,12 @@ export default function UserHomeContent() {
             <View className="mt-6 px-4">
                 <Text className="mb-3 text-lg font-bold">Yêu cầu đang xử lý</Text>
                 <TouchableOpacity
-                    onPress={() => router.push('/requests')}
+                    onPress={() =>
+                        router.push({
+                            pathname: '/profile',
+                            params: { view: 'requests' },
+                        })
+                    }
                     className="overflow-hidden rounded-xl bg-white shadow-sm"
                 >
                     <View className="h-32 items-center justify-center bg-gray-200">

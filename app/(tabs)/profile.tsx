@@ -1,12 +1,14 @@
+import RequestsScreen from '@/app/(tabs)/requests/index';
+import TasksListScreen from '@/app/(tabs)/tasks/index';
 import '@/global.css';
-import HelpScreen from '@/src/components/HelpScreen';
-import SettingsScreen from '@/src/components/SettingsScreen';
-import RequestsScreen from '@/src/components/user/requests';
-import TasksListScreen from '@/src/components/volunteer/tasks';
+import MenuItem from '@/src/components/MenuItem';
+import HelpScreen from '@/src/components/screens/HelpScreen';
+import SettingsScreen from '@/src/components/screens/SettingsScreen';
 import { useAuthStore } from '@/src/store/authStore';
+import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -17,7 +19,16 @@ export default function ProfileScreen() {
     const user = useAuthStore((s) => s.user);
     const logout = useAuthStore((s) => s.logout);
     const router = useRouter();
+    const params = useLocalSearchParams();
     const [currentScreen, setCurrentScreen] = useState<ProfileScreenType>('profile');
+    const getPrimaryColor = useThemeStore((s) => s.getPrimaryColor);
+    const primaryColor = getPrimaryColor();
+
+    useEffect(() => {
+        if (params.view) {
+            setCurrentScreen(params.view as ProfileScreenType);
+        }
+    }, [params.view]);
 
     const handleLogout = () => {
         logout();
@@ -60,15 +71,24 @@ export default function ProfileScreen() {
                 {/* Header */}
                 <View className="bg-white px-4 py-6 shadow-sm">
                     <View className="items-center">
-                        <View className="mb-4 h-24 w-24 items-center justify-center rounded-full bg-primary/10">
-                            <Ionicons name="person" size={48} color="#137fec" />
+                        <View
+                            className="mb-4 h-24 w-24 items-center justify-center rounded-full"
+                            style={{ backgroundColor: `${primaryColor}1A` }}
+                        >
+                            <Ionicons name="person" size={48} color={primaryColor} />
                         </View>
                         <Text className="text-2xl font-bold">{user?.full_name}</Text>
                         <Text className="mt-1 text-sm text-text-secondary">
                             {user?.email}
                         </Text>
-                        <View className="mt-2 rounded-full bg-primary/10 px-3 py-1">
-                            <Text className="text-sm font-medium text-primary">
+                        <View
+                            className="mt-2 rounded-full px-3 py-1"
+                            style={{ backgroundColor: `${primaryColor}1A` }}
+                        >
+                            <Text
+                                className="text-sm font-medium"
+                                style={{ color: primaryColor }}
+                            >
                                 {isVolunteer ? 'Tình nguyện viên' : 'Người dùng'}
                             </Text>
                         </View>
@@ -83,6 +103,7 @@ export default function ProfileScreen() {
                             title="Theo dõi nhiệm vụ"
                             subtitle="Xem và cập nhật trạng thái nhiệm vụ"
                             onPress={() => setCurrentScreen('tasks')}
+                            color={primaryColor}
                         />
                     ) : (
                         <MenuItem
@@ -90,15 +111,36 @@ export default function ProfileScreen() {
                             title="Theo dõi yêu cầu"
                             subtitle="Xem trạng thái yêu cầu cứu trợ của bạn"
                             onPress={() => setCurrentScreen('requests')}
+                            color={primaryColor}
                         />
                     )}
                 </View>
 
                 <View className="mt-4 bg-white">
-                    <MenuItem icon="person-outline" title="Thông tin cá nhân" onPress={() => { }} />
-                    <MenuItem icon="notifications-outline" title="Thông báo" onPress={() => { }} />
-                    <MenuItem icon="settings-outline" title="Cài đặt" onPress={() => setCurrentScreen('settings')} />
-                    <MenuItem icon="help-circle-outline" title="Trợ giúp" onPress={() => setCurrentScreen('help')} />
+                    <MenuItem
+                        icon="person-outline"
+                        title="Thông tin cá nhân"
+                        onPress={() => { }}
+                        color={primaryColor}
+                    />
+                    <MenuItem
+                        icon="notifications-outline"
+                        title="Thông báo"
+                        onPress={() => { }}
+                        color={primaryColor}
+                    />
+                    <MenuItem
+                        icon="settings-outline"
+                        title="Cài đặt"
+                        onPress={() => setCurrentScreen('settings')}
+                        color={primaryColor}
+                    />
+                    <MenuItem
+                        icon="help-circle-outline"
+                        title="Trợ giúp"
+                        onPress={() => setCurrentScreen('help')}
+                        color={primaryColor}
+                    />
                 </View>
             </ScrollView>
 
@@ -120,34 +162,3 @@ export default function ProfileScreen() {
     );
 }
 
-function MenuItem({
-    icon,
-    title,
-    subtitle,
-    onPress,
-}: {
-    icon: keyof typeof Ionicons.glyphMap;
-    title: string;
-    subtitle?: string;
-    onPress: () => void;
-}) {
-    return (
-        <TouchableOpacity
-            onPress={onPress}
-            className="flex-row items-center justify-between border-b border-gray-100 px-4 py-4"
-        >
-            <View className="flex-row items-center gap-3">
-                <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                    <Ionicons name={icon} size={22} color="#137fec" />
-                </View>
-                <View>
-                    <Text className="text-base font-medium">{title}</Text>
-                    {subtitle && (
-                        <Text className="text-xs text-text-secondary">{subtitle}</Text>
-                    )}
-                </View>
-            </View>
-            <Ionicons name="chevron-forward" size={20} color="#6b7280" />
-        </TouchableOpacity>
-    );
-}

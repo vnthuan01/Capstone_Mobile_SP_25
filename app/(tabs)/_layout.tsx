@@ -16,8 +16,8 @@ export default function TabsLayout() {
     tabBarActiveTintColor: '#137fec',
     tabBarInactiveTintColor: '#64748b',
 
-    tabBarLabelPosition: 'below-icon', // 🔥 ép layout ổn định
-    tabBarAllowFontScaling: false, // 🔥 không auto scale font
+    tabBarLabelPosition: 'below-icon',
+    tabBarAllowFontScaling: false,
 
     tabBarStyle: {
       height: TAB_HEIGHT,
@@ -33,10 +33,9 @@ export default function TabsLayout() {
 
     tabBarLabelStyle: {
       fontSize: 12,
-      lineHeight: 16, // 🔥 tăng lineHeight
+      lineHeight: 16,
       paddingBottom: 0,
-      includeFontPadding: false, // 🔥 ANDROID FIX
-      textAlignVertical: 'center',
+      includeFontPadding: false,
     },
   } as const;
 
@@ -139,6 +138,7 @@ export default function TabsLayout() {
       {/* hidden routes */}
       <Tabs.Screen name="home/user" options={{ href: null }} />
       <Tabs.Screen name="home/volunteer" options={{ href: null }} />
+      {/* hidden routes */}
       <Tabs.Screen name="tasks" options={{ href: null }} />
       <Tabs.Screen name="requests" options={{ href: null }} />
     </Tabs>
