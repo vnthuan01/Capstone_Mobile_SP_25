@@ -1,20 +1,20 @@
 {
   "expo": {
-    "name": "wdp-mobile",
-    "slug": "wdp-mobile",
+    "name": "capstone_mobile_sp_25_-_reliefcare",
+    "slug": "capstone_mobile_sp_25_-_reliefcare",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "wdpmobile",
+    "scheme": "capstone_mobile_sp_25_-_reliefcare",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.wdpmobile"
+      "bundleIdentifier": "com.anonymous.capstone_mobile_sp_25_-_reliefcare"
     },
     "android": {
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.anonymous.wdpmobile"
+      "package": "com.anonymous.capstone_mobile_sp_25_-_reliefcare"
     },
     "web": {
       "output": "static",

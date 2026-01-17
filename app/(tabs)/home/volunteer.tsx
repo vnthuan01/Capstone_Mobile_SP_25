@@ -1,12 +1,27 @@
 import '@/global.css';
+import UpdateTaskStatusScreen from '@/src/components/volunteer/UpdateTaskStatusScreen';
+import ViewTasksScreen from '@/src/components/volunteer/ViewTasksScreen';
 import { useAuthStore } from '@/src/store/authStore';
 import { Ionicons } from '@expo/vector-icons';
+import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+type VolunteerScreen = 'home' | 'tasks' | 'update';
 
 export default function VolunteerHome() {
   const { top, bottom } = useSafeAreaInsets();
   const user = useAuthStore((s) => s.user);
+  const [currentScreen, setCurrentScreen] =
+    useState<VolunteerScreen>('home');
+
+  if (currentScreen === 'tasks') {
+    return <ViewTasksScreen onBack={() => setCurrentScreen('home')} />;
+  }
+
+  if (currentScreen === 'update') {
+    return <UpdateTaskStatusScreen onBack={() => setCurrentScreen('home')} />;
+  }
 
   return (
     <ScrollView
@@ -57,7 +72,10 @@ export default function VolunteerHome() {
               Cung cấp nước sạch và thực phẩm cho người dân bị cô lập.
             </Text>
 
-            <TouchableOpacity className="h-12 flex-row items-center justify-center gap-2 rounded-lg bg-primary">
+            <TouchableOpacity
+              onPress={() => setCurrentScreen('tasks')}
+              className="h-12 flex-row items-center justify-center gap-2 rounded-lg bg-primary"
+            >
               <Text className="font-bold text-white">Bắt đầu nhiệm vụ</Text>
               <Ionicons name="arrow-forward" color="#fff" />
             </TouchableOpacity>
@@ -73,7 +91,11 @@ export default function VolunteerHome() {
           <QuickAction icon="alert-circle" label="Báo cáo sự cố" />
           <QuickAction icon="call" label="Gọi chỉ huy" />
           <QuickAction icon="map" label="Bản đồ" />
-          <QuickAction icon="checkmark-done" label="Cập nhật trạng thái" />
+          <QuickAction
+            icon="checkmark-done"
+            label="Cập nhật trạng thái"
+            onPress={() => setCurrentScreen('update')}
+          />
         </View>
       </View>
     </ScrollView>
@@ -83,9 +105,8 @@ export default function VolunteerHome() {
 function StatusButton({ label, active }: { label: string; active?: boolean }) {
   return (
     <View
-      className={`h-10 flex-1 items-center justify-center rounded-lg ${
-        active ? 'bg-white' : ''
-      }`}
+      className={`h-10 flex-1 items-center justify-center rounded-lg ${active ? 'bg-white' : ''
+        }`}
     >
       <Text className={active ? 'font-bold text-primary' : 'text-gray-400'}>
         {label}
@@ -97,14 +118,19 @@ function StatusButton({ label, active }: { label: string; active?: boolean }) {
 function QuickAction({
   icon,
   label,
+  onPress,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
+  onPress?: () => void;
 }) {
   return (
-    <View className="h-28 w-[48%] items-center justify-center gap-2 rounded-xl bg-white shadow-sm">
+    <TouchableOpacity
+      onPress={onPress}
+      className="h-28 w-[48%] items-center justify-center gap-2 rounded-xl bg-white shadow-sm"
+    >
       <Ionicons name={icon} size={24} color="#137fec" />
       <Text className="text-sm font-semibold">{label}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
