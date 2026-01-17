@@ -1,4 +1,6 @@
 import '@/global.css';
+import Header from '@/src/components/header/header';
+import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import {
@@ -18,8 +20,20 @@ interface RequestRescueScreenProps {
 
 export default function RequestRescueScreen({
     onBack,
-}: RequestRescueScreenProps = {}) {
-    const { top, bottom } = useSafeAreaInsets();
+}: RequestRescueScreenProps) {
+    const { bottom } = useSafeAreaInsets();
+    const { mode } = useThemeStore();
+    const isDark = mode === 'dark';
+
+    // Theme Styles
+    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
+    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const textClass = isDark ? 'text-white' : 'text-black';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
+    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
+    const inputBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
+
     const [selectedNeed, setSelectedNeed] = useState<NeedType | null>(null);
     const [urgency, setUrgency] = useState<UrgencyLevel>('normal');
     const [peopleCount, setPeopleCount] = useState(1);
@@ -52,27 +66,12 @@ export default function RequestRescueScreen({
     ];
 
     return (
-        <View className="flex-1 bg-background-light">
-            {/* Header */}
-            <View
-                style={{ paddingTop: top }}
-                className="flex-row items-center border-b border-gray-100 bg-white px-4 py-4"
-            >
-                <TouchableOpacity
-                    onPress={onBack}
-                    className="h-10 w-10 items-center justify-center rounded-full"
-                >
-                    <Ionicons name="arrow-back" size={24} color="#111418" />
-                </TouchableOpacity>
-                <Text className="flex-1 text-center text-lg font-bold">
-                    Gửi yêu cầu cứu trợ
-                </Text>
-                <View className="w-10" />
-            </View>
+        <View className={`flex-1 ${bgClass}`}>
+            <Header title="Gửi yêu cầu cứu trợ" center onBack={onBack} />
 
             <ScrollView
-                style={{ paddingBottom: bottom + 100 }}
                 className="flex-1"
+                contentContainerStyle={{ paddingBottom: bottom + 120 }}
                 showsVerticalScrollIndicator={false}
             >
                 {/* Need Type Selection */}
@@ -233,12 +232,13 @@ export default function RequestRescueScreen({
                 style={{ paddingBottom: bottom + 16 }}
                 className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white p-4"
             >
-                <TouchableOpacity className="h-12 w-full items-center justify-center overflow-hidden rounded-xl bg-primary shadow-lg shadow-blue-500/30">
+                <TouchableOpacity className="h-12 w-full flex-row gap-2 items-center justify-center overflow-hidden rounded-xl bg-primary shadow-lg shadow-blue-500/30">
                     <Text className="text-base font-bold leading-normal text-white">
                         GỬI YÊU CẦU NGAY
                     </Text>
+                    <Ionicons name="send" size={20} color="#fff" />
                 </TouchableOpacity>
-                <View className="mt-3 flex-row items-center justify-center gap-1">
+                <View className="mt-1 flex-row items-center justify-center gap-1">
                     <Ionicons name="sparkles" size={14} color="#617589" />
                     <Text className="text-center text-xs text-text-secondary">
                         AI sẽ ưu tiên xử lý dựa trên mức độ khẩn cấp

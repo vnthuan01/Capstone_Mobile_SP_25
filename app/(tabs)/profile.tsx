@@ -14,6 +14,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ProfileScreenType = 'profile' | 'requests' | 'tasks' | 'settings' | 'help';
 
+const ACCENT_COLOR = '#137fec';
+
 export default function ProfileScreen() {
     const { top, bottom } = useSafeAreaInsets();
     const user = useAuthStore((s) => s.user);
@@ -21,8 +23,15 @@ export default function ProfileScreen() {
     const router = useRouter();
     const params = useLocalSearchParams();
     const [currentScreen, setCurrentScreen] = useState<ProfileScreenType>('profile');
-    const getPrimaryColor = useThemeStore((s) => s.getPrimaryColor);
-    const primaryColor = getPrimaryColor();
+
+    // Theme logic
+    const { mode } = useThemeStore();
+    const isDark = mode === 'dark';
+    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
+    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const textClass = isDark ? 'text-white' : 'text-gray-800';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
+    const headerBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
 
     useEffect(() => {
         if (params.view) {
@@ -58,7 +67,7 @@ export default function ProfileScreen() {
     const isVolunteer = user?.role === 'Volunteer';
 
     return (
-        <View className="flex-1 relative bg-background-light">
+        <View className={`flex-1 relative ${bgClass}`}>
 
             <ScrollView
                 style={{
@@ -69,25 +78,23 @@ export default function ProfileScreen() {
                 showsVerticalScrollIndicator={false}
             >
                 {/* Header */}
-                <View className="bg-white px-4 py-6 shadow-sm">
+                <View className={`${cardBgClass} px-4 py-6 shadow-sm`}>
                     <View className="items-center">
                         <View
-                            className="mb-4 h-24 w-24 items-center justify-center rounded-full"
-                            style={{ backgroundColor: `${primaryColor}1A` }}
+                            className={`mb-4 h-24 w-24 items-center justify-center rounded-full ${headerBg}`}
                         >
-                            <Ionicons name="person" size={48} color={primaryColor} />
+                            <Ionicons name="person" size={48} color={ACCENT_COLOR} />
                         </View>
-                        <Text className="text-2xl font-bold">{user?.full_name}</Text>
-                        <Text className="mt-1 text-sm text-text-secondary">
+                        <Text className={`text-2xl font-bold ${textClass}`}>{user?.full_name}</Text>
+                        <Text className={`mt-1 text-sm ${subTextClass}`}>
                             {user?.email}
                         </Text>
                         <View
-                            className="mt-2 rounded-full px-3 py-1"
-                            style={{ backgroundColor: `${primaryColor}1A` }}
+                            className={`mt-2 rounded-full px-3 py-1 ${headerBg}`}
                         >
                             <Text
                                 className="text-sm font-medium"
-                                style={{ color: primaryColor }}
+                                style={{ color: ACCENT_COLOR }}
                             >
                                 {isVolunteer ? 'Tình nguyện viên' : 'Người dùng'}
                             </Text>
@@ -96,14 +103,14 @@ export default function ProfileScreen() {
                 </View>
 
                 {/* Menu */}
-                <View className="mt-4 bg-white">
+                <View className={`mt-4 ${cardBgClass}`}>
                     {isVolunteer ? (
                         <MenuItem
                             icon="clipboard-outline"
                             title="Theo dõi nhiệm vụ"
                             subtitle="Xem và cập nhật trạng thái nhiệm vụ"
                             onPress={() => setCurrentScreen('tasks')}
-                            color={primaryColor}
+                            isDark={isDark}
                         />
                     ) : (
                         <MenuItem
@@ -111,35 +118,35 @@ export default function ProfileScreen() {
                             title="Theo dõi yêu cầu"
                             subtitle="Xem trạng thái yêu cầu cứu trợ của bạn"
                             onPress={() => setCurrentScreen('requests')}
-                            color={primaryColor}
+                            isDark={isDark}
                         />
                     )}
                 </View>
 
-                <View className="mt-4 bg-white">
+                <View className={`mt-4 ${cardBgClass}`}>
                     <MenuItem
                         icon="person-outline"
                         title="Thông tin cá nhân"
                         onPress={() => { }}
-                        color={primaryColor}
+                        isDark={isDark}
                     />
                     <MenuItem
                         icon="notifications-outline"
                         title="Thông báo"
                         onPress={() => { }}
-                        color={primaryColor}
+                        isDark={isDark}
                     />
                     <MenuItem
                         icon="settings-outline"
                         title="Cài đặt"
                         onPress={() => setCurrentScreen('settings')}
-                        color={primaryColor}
+                        isDark={isDark}
                     />
                     <MenuItem
                         icon="help-circle-outline"
                         title="Trợ giúp"
                         onPress={() => setCurrentScreen('help')}
-                        color={primaryColor}
+                        isDark={isDark}
                     />
                 </View>
             </ScrollView>
@@ -147,11 +154,11 @@ export default function ProfileScreen() {
             {/* LOGOUT FIXED */}
             <View
                 style={{ paddingBottom: bottom + 16 }}
-                className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white/80 px-4 pt-4"
+                className={`absolute bottom-0 left-0 right-0 border-t ${isDark ? 'border-gray-800 bg-gray-900' : 'border-gray-100 bg-white/80'} px-4 pt-4`}
             >
                 <TouchableOpacity
                     onPress={handleLogout}
-                    className="flex-row items-center justify-center gap-2 rounded-xl border border-red-200 bg-white py-3"
+                    className={`flex-row items-center justify-center gap-2 rounded-xl border ${isDark ? 'border-red-900 bg-gray-800' : 'border-red-200 bg-white'} py-3`}
                 >
                     <Ionicons name="log-out-outline" size={20} color="#ef4444" />
                     <Text className="font-bold text-red-500">Đăng xuất</Text>

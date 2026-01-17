@@ -1,4 +1,6 @@
 import '@/global.css';
+import Header from '@/src/components/header/header';
+import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,73 +13,73 @@ interface ViewRequestRescueScreenProps {
 export default function ViewRequestRescueScreen({
     onBack,
 }: ViewRequestRescueScreenProps = {}) {
-    const { top, bottom } = useSafeAreaInsets();
+    const { bottom } = useSafeAreaInsets();
+    const { mode } = useThemeStore();
+    const isDark = mode === 'dark';
+
+    // Theme Styles
+    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
+    const textClass = isDark ? 'text-white' : 'text-black';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-gray-500';
+    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
+    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
+    const overlayGradientClass = isDark ? 'from-gray-900' : 'from-white';
 
     return (
-        <View className="flex-1 bg-background-light">
-            {/* Header */}
-            <View
-                style={{ paddingTop: top }}
-                className="flex-row items-center justify-between border-b border-gray-100 bg-white px-4 py-4"
-            >
-                <TouchableOpacity
-                    onPress={onBack}
-                    className="h-12 w-12 items-center justify-center rounded-full"
-                >
-                    <Ionicons name="arrow-back" size={24} color="#111418" />
-                </TouchableOpacity>
-                <Text className="flex-1 text-center text-lg font-bold">
-                    Theo dõi yêu cầu
-                </Text>
-                <View className="w-12" />
-            </View>
+        <View className={`flex-1 ${bgClass}`}>
+            <Header
+                title="Theo dõi yêu cầu"
+                onBack={onBack}
+                center
+            />
 
             <ScrollView
-                style={{ paddingBottom: bottom + 120 }}
+                contentContainerStyle={{ paddingBottom: bottom + 120 }}
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
             >
                 {/* Map Section */}
-                <View className="relative h-64 w-full bg-gray-200">
+                <View className={`relative h-64 w-full ${mapPlaceholderBg}`}>
                     <View className="h-full w-full items-center justify-center">
                         <Ionicons name="map" size={60} color="#6b7280" />
                     </View>
                     {/* Gradient Overlay */}
-                    <View className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white" />
+                    <View className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t ${overlayGradientClass}`} />
                     {/* ETA Badge */}
-                    <View className="absolute bottom-4 left-4 flex-row items-center gap-2 rounded-full border border-gray-100 bg-white px-4 py-2 shadow-lg">
+                    <View className={`absolute bottom-4 left-4 flex-row items-center gap-2 rounded-full border ${borderClass} ${cardBgClass} px-4 py-2 shadow-lg`}>
                         <Ionicons name="time" size={20} color="#137fec" />
                         <View>
-                            <Text className="text-xs font-medium uppercase tracking-wider text-gray-500">
+                            <Text className={`text-xs font-medium uppercase tracking-wider ${subTextClass}`}>
                                 Dự kiến đến
                             </Text>
-                            <Text className="text-sm font-bold">15 phút</Text>
+                            <Text className={`text-sm font-bold ${textClass}`}>15 phút</Text>
                         </View>
                     </View>
                 </View>
 
                 {/* Status Headline */}
                 <View className="px-4 pb-2 pt-4">
-                    <Text className="text-[26px] font-bold leading-tight">
+                    <Text className={`text-[26px] font-bold leading-tight ${textClass}`}>
                         Đội cứu hộ đang đến
                     </Text>
-                    <Text className="mt-1 text-sm text-gray-500">
+                    <Text className={`mt-1 text-sm ${subTextClass}`}>
                         Đừng lo lắng, chúng tôi đang trên đường tới vị trí của bạn.
                     </Text>
                 </View>
 
                 {/* Volunteer Card */}
                 <View className="p-4">
-                    <View className="flex-col gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4">
+                    <View className={`flex-col gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-4`}>
                         <View className="flex-row items-center gap-4">
                             <View className="relative">
-                                <View className="h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-gray-300 shadow-sm">
+                                <View className={`h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-gray-300 shadow-sm`}>
                                     <Ionicons name="person" size={28} color="#137fec" />
                                 </View>
                                 <View className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500" />
                             </View>
                             <View className="flex-1">
-                                <Text className="text-lg font-bold">Nguyễn Văn A</Text>
+                                <Text className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>Nguyễn Văn A</Text>
                                 <View className="flex-row items-center gap-1">
                                     <Ionicons name="checkmark-circle" size={18} color="#137fec" />
                                     <Text className="text-sm font-medium text-primary">
@@ -94,19 +96,19 @@ export default function ViewRequestRescueScreen({
                                 <Ionicons name="call" size={20} color="#fff" />
                                 <Text className="font-bold text-white">Gọi điện</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity className="h-12 flex-1 flex-row items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white">
-                                <Ionicons name="chatbubble-outline" size={20} color="#111418" />
-                                <Text className="font-bold">Nhắn tin</Text>
+                            <TouchableOpacity className={`h-12 flex-1 flex-row items-center justify-center gap-2 rounded-xl border ${borderClass} ${cardBgClass}`}>
+                                <Ionicons name="chatbubble-outline" size={20} color={isDark ? '#fff' : '#111418'} />
+                                <Text className={`font-bold ${textClass}`}>Nhắn tin</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
 
-                <View className="my-2 h-2 w-full bg-gray-100" />
+                <View className={`my-2 h-2 w-full ${isDark ? 'bg-gray-800' : 'bg-gray-100'}`} />
 
                 {/* Timeline Progress */}
                 <View className="px-4 py-4">
-                    <Text className="mb-4 text-lg font-bold">Tiến trình</Text>
+                    <Text className={`mb-4 text-lg font-bold ${textClass}`}>Tiến trình</Text>
                     <View className="relative flex-col gap-0">
                         {/* Step 3 - Current */}
                         <View className="flex-row gap-4">
@@ -114,11 +116,11 @@ export default function ViewRequestRescueScreen({
                                 <View className="z-10 h-8 w-8 items-center justify-center rounded-full bg-primary shadow-md">
                                     <Ionicons name="car" size={18} color="#fff" />
                                 </View>
-                                <View className="my-1 w-0.5 flex-1 bg-gray-200" />
+                                <View className={`my-1 w-0.5 flex-1 ${isDark ? 'bg-gray-700' : 'bg-gray-200'}`} />
                             </View>
                             <View className="flex-1 pb-6">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className="text-base font-bold">
+                                    <Text className={`text-base font-bold ${textClass}`}>
                                         Đội cứu hộ đang di chuyển
                                     </Text>
                                     <View className="rounded-md bg-primary/10 px-2 py-1">
@@ -127,7 +129,7 @@ export default function ViewRequestRescueScreen({
                                         </Text>
                                     </View>
                                 </View>
-                                <Text className="mt-1 text-sm text-gray-500">
+                                <Text className={`mt-1 text-sm ${subTextClass}`}>
                                     Đang cách bạn 3.5km
                                 </Text>
                             </View>
@@ -143,14 +145,14 @@ export default function ViewRequestRescueScreen({
                             </View>
                             <View className="flex-1 pb-6 opacity-70">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className="text-base font-medium">
+                                    <Text className={`text-base font-medium ${textClass}`}>
                                         Đã phân công tình nguyện viên
                                     </Text>
                                     <Text className="text-xs font-medium text-gray-400">
                                         09:15
                                     </Text>
                                 </View>
-                                <Text className="mt-1 text-sm text-gray-500">
+                                <Text className={`mt-1 text-sm ${subTextClass}`}>
                                     TNV Nguyễn Văn A đã nhận yêu cầu
                                 </Text>
                             </View>
@@ -165,14 +167,14 @@ export default function ViewRequestRescueScreen({
                             </View>
                             <View className="flex-1 pb-2 opacity-70">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className="text-base font-medium">
+                                    <Text className={`text-base font-medium ${textClass}`}>
                                         Yêu cầu đã được gửi
                                     </Text>
                                     <Text className="text-xs font-medium text-gray-400">
                                         09:00
                                     </Text>
                                 </View>
-                                <Text className="mt-1 text-sm text-gray-500">
+                                <Text className={`mt-1 text-sm ${subTextClass}`}>
                                     Hệ thống đã ghi nhận vị trí của bạn
                                 </Text>
                             </View>
@@ -184,10 +186,10 @@ export default function ViewRequestRescueScreen({
             {/* Sticky Bottom Actions */}
             <View
                 style={{ paddingBottom: bottom + 16 }}
-                className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white/90 p-4"
+                className={`absolute bottom-0 left-0 right-0 border-t ${borderClass} ${isDark ? 'bg-gray-900/90' : 'bg-white/90'} p-4`}
             >
                 <View className="flex-col gap-3">
-                    <TouchableOpacity className="h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-red-500 bg-white">
+                    <TouchableOpacity className={`h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-red-500 ${cardBgClass}`}>
                         <Ionicons name="close-circle-outline" size={20} color="#ef4444" />
                         <Text className="text-sm font-bold text-red-500">
                             Hủy yêu cầu cứu hộ

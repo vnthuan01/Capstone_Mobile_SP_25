@@ -1,4 +1,5 @@
 import '@/global.css';
+import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -7,12 +8,20 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export default function UserHomeContent() {
     const { bottom } = useSafeAreaInsets();
     const router = useRouter();
+    const { mode } = useThemeStore();
+    const isDark = mode === 'dark';
+
+    // Styles
+    const textClass = isDark ? 'text-white' : 'text-gray-800';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
+    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
 
     return (
         <View style={{ paddingBottom: bottom + 20 }}>
             {/* Quick Actions */}
             <View className="mt-6 px-4">
-                <Text className="mb-3 text-lg font-bold">Hành động nhanh</Text>
+                <Text className={`mb-3 text-lg font-bold ${textClass}`}>Hành động nhanh</Text>
                 <View className="flex-row gap-3">
                     <QuickActionCard
                         icon="add-circle"
@@ -25,10 +34,9 @@ export default function UserHomeContent() {
                         label="Theo dõi"
                         color="green"
                         onPress={() =>
-                            router.push({
-                                pathname: '/profile',
-                                params: { view: 'requests' },
-                            })
+                            router.push(
+                                '/requests',
+                            )
                         }
                     />
                 </View>
@@ -36,7 +44,7 @@ export default function UserHomeContent() {
 
             {/* Active Request */}
             <View className="mt-6 px-4">
-                <Text className="mb-3 text-lg font-bold">Yêu cầu đang xử lý</Text>
+                <Text className={`mb-3 text-lg font-bold ${textClass}`}>Yêu cầu đang xử lý</Text>
                 <TouchableOpacity
                     onPress={() =>
                         router.push({
@@ -44,9 +52,9 @@ export default function UserHomeContent() {
                             params: { view: 'requests' },
                         })
                     }
-                    className="overflow-hidden rounded-xl bg-white shadow-sm"
+                    className={`overflow-hidden rounded-xl shadow-sm ${cardBgClass}`}
                 >
-                    <View className="h-32 items-center justify-center bg-gray-200">
+                    <View className={`h-32 items-center justify-center ${mapPlaceholderBg}`}>
                         <Ionicons name="map" size={40} color="#6b7280" />
                     </View>
                     <View className="p-4">
@@ -57,13 +65,13 @@ export default function UserHomeContent() {
                                 </Text>
                             </View>
                         </View>
-                        <Text className="text-lg font-bold">Yêu cầu cứu trợ #001</Text>
-                        <Text className="mt-1 text-sm text-text-secondary">
+                        <Text className={`text-lg font-bold ${textClass}`}>Yêu cầu cứu trợ #001</Text>
+                        <Text className={`mt-1 text-sm ${subTextClass}`}>
                             Lương thực, Y tế
                         </Text>
-                        <View className="mt-3 flex-row items-center gap-2 rounded-lg bg-blue-50 p-2">
+                        <View className={`mt-3 flex-row items-center gap-2 rounded-lg p-2 ${isDark ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
                             <Ionicons name="car" size={18} color="#137fec" />
-                            <Text className="text-sm font-medium text-primary">
+                            <Text className={`text-sm font-medium ${isDark ? 'text-blue-300' : 'text-primary'}`}>
                                 Đội cứu hộ đang đến - 15 phút
                             </Text>
                         </View>

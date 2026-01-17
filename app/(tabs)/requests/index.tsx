@@ -1,5 +1,6 @@
-import '@/global.css';
+import Header from '@/src/components/header/header';
 import ViewRequestRescueScreen from '@/src/components/user/ViewRequestRescueScreen';
+import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -12,9 +13,19 @@ interface RequestsScreenProps {
 }
 
 export default function RequestsScreen({ onBack }: RequestsScreenProps) {
-    const { top, bottom } = useSafeAreaInsets();
+    const { bottom } = useSafeAreaInsets();
     const [currentScreen, setCurrentScreen] =
         useState<RequestsScreenType>('list');
+
+    const { mode } = useThemeStore();
+    const isDark = mode === 'dark';
+
+    // Styles
+    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
+    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
+    const textClass = isDark ? 'text-white' : 'text-gray-800';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
+    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
 
     if (currentScreen === 'detail') {
         return (
@@ -23,111 +34,102 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
     }
 
     return (
-        <ScrollView
-            style={{ paddingTop: top, paddingBottom: bottom + 96 }}
-            className="bg-background-light"
-        >
-            {/* HEADER */}
-            <View className="bg-white px-4 py-4 shadow-sm">
-                <View className="flex-row items-center gap-3">
-                    {onBack && (
-                        <TouchableOpacity
-                            onPress={onBack}
-                            className="h-10 w-10 items-center justify-center rounded-full"
-                        >
-                            <Ionicons name="arrow-back" size={24} color="#111418" />
-                        </TouchableOpacity>
-                    )}
-                    <View>
-                        <Text className="text-xl font-bold">Theo dõi yêu cầu</Text>
-                        <Text className="text-sm text-text-secondary">
-                            Danh sách yêu cầu cứu trợ của bạn
-                        </Text>
-                    </View>
-                </View>
-            </View>
+        <View className={`flex-1 ${bgClass}`}>
+            <Header
+                title="Theo dõi yêu cầu"
+                subtitle="Danh sách yêu cầu cứu trợ của bạn"
+                onBack={onBack}
+            />
 
-            {/* Active Request */}
-            <View className="mt-4 px-4">
-                <Text className="mb-3 text-base font-bold">Đang hoạt động</Text>
-                <TouchableOpacity
-                    onPress={() => setCurrentScreen('detail')}
-                    className="overflow-hidden rounded-xl bg-white shadow-sm"
-                >
-                    {/* Map Preview */}
-                    <View className="h-32 items-center justify-center bg-gray-200">
-                        <Ionicons name="map" size={40} color="#6b7280" />
-                    </View>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: bottom + 96 }}
+                className="flex-1"
+            >
 
-                    {/* Request Info */}
-                    <View className="p-4">
-                        <View className="flex-row items-center justify-between">
-                            <View className="flex-1">
-                                <View className="mb-2 flex-row items-center gap-2">
-                                    <View className="rounded-full bg-green-100 px-2 py-0.5">
-                                        <Text className="text-xs font-bold text-green-700">
-                                            Đang xử lý
-                                        </Text>
+                {/* Active Request */}
+                <View className="mt-4 px-4">
+                    <Text className={`mb-3 text-base font-bold ${textClass}`}>Đang hoạt động</Text>
+                    <TouchableOpacity
+                        onPress={() => setCurrentScreen('detail')}
+                        className={`overflow-hidden rounded-xl shadow-sm ${cardBgClass}`}
+                    >
+                        {/* Map Preview */}
+                        <View className={`h-32 items-center justify-center ${mapPlaceholderBg}`}>
+                            <Ionicons name="map" size={40} color="#6b7280" />
+                        </View>
+
+                        {/* Request Info */}
+                        <View className="p-4">
+                            <View className="flex-row items-center justify-between">
+                                <View className="flex-1">
+                                    <View className="mb-2 flex-row items-center gap-2">
+                                        <View className="rounded-full bg-green-100 px-2 py-0.5">
+                                            <Text className="text-xs font-bold text-green-700">
+                                                Đang xử lý
+                                            </Text>
+                                        </View>
+                                        <View className="rounded-full bg-amber-100 px-2 py-0.5">
+                                            <Text className="text-xs font-bold text-amber-700">
+                                                Khẩn cấp
+                                            </Text>
+                                        </View>
                                     </View>
-                                    <View className="rounded-full bg-amber-100 px-2 py-0.5">
-                                        <Text className="text-xs font-bold text-amber-700">
-                                            Khẩn cấp
-                                        </Text>
-                                    </View>
+                                    <Text className={`text-lg font-bold ${textClass}`}>Yêu cầu cứu trợ #001</Text>
+                                    <Text className={`mt-1 text-sm ${subTextClass}`}>
+                                        Lương thực, Y tế
+                                    </Text>
                                 </View>
-                                <Text className="text-lg font-bold">Yêu cầu cứu trợ #001</Text>
-                                <Text className="mt-1 text-sm text-text-secondary">
-                                    Lương thực, Y tế
+                                <Ionicons name="chevron-forward" size={24} color={isDark ? '#9ca3af' : '#6b7280'} />
+                            </View>
+
+                            {/* Status */}
+                            <View className={`mt-3 flex-row items-center gap-2 rounded-lg p-3 ${isDark ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
+                                <Ionicons name="car" size={20} color="#137fec" />
+                                <Text className={`flex-1 text-sm font-medium ${isDark ? 'text-blue-300' : 'text-primary'}`}>
+                                    Đội cứu hộ đang đến - Dự kiến 15 phút
                                 </Text>
                             </View>
-                            <Ionicons name="chevron-forward" size={24} color="#6b7280" />
                         </View>
-
-                        {/* Status */}
-                        <View className="mt-3 flex-row items-center gap-2 rounded-lg bg-blue-50 p-3">
-                            <Ionicons name="car" size={20} color="#137fec" />
-                            <Text className="flex-1 text-sm font-medium text-primary">
-                                Đội cứu hộ đang đến - Dự kiến 15 phút
-                            </Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-
-            {/* Past Requests */}
-            <View className="mt-6 px-4">
-                <Text className="mb-3 text-base font-bold">Lịch sử</Text>
-
-                <View className="gap-3">
-                    <RequestHistoryItem
-                        id="#002"
-                        status="Hoàn thành"
-                        statusColor="green"
-                        type="Cứu hộ"
-                        date="15/01/2026"
-                    />
-                    <RequestHistoryItem
-                        id="#003"
-                        status="Đã hủy"
-                        statusColor="gray"
-                        type="Chỗ ở"
-                        date="14/01/2026"
-                    />
+                    </TouchableOpacity>
                 </View>
-            </View>
 
-            {/* Emergency Button */}
-            <View className="mt-8 px-4">
-                <TouchableOpacity className="h-16 flex-row items-center justify-center gap-3 rounded-xl bg-red-600">
-                    <Ionicons name="warning" size={26} color="#fff" />
-                    <Text className="text-xl font-black text-white">SOS – KHẨN CẤP</Text>
-                </TouchableOpacity>
+                {/* Past Requests */}
+                <View className="mt-6 px-4">
+                    <Text className={`mb-3 text-base font-bold ${textClass}`}>Lịch sử</Text>
 
-                <Text className="mt-2 text-center text-xs text-gray-400">
-                    Nhấn để gửi tín hiệu khẩn cấp
-                </Text>
-            </View>
-        </ScrollView>
+                    <View className="gap-3">
+                        <RequestHistoryItem
+                            id="#002"
+                            status="Hoàn thành"
+                            statusColor="green"
+                            type="Cứu hộ"
+                            date="15/01/2026"
+                            isDark={isDark}
+                        />
+                        <RequestHistoryItem
+                            id="#003"
+                            status="Đã hủy"
+                            statusColor="gray"
+                            type="Chỗ ở"
+                            date="14/01/2026"
+                            isDark={isDark}
+                        />
+                    </View>
+                </View>
+
+                {/* Emergency Button */}
+                <View className="mt-8 px-4">
+                    <TouchableOpacity className="h-16 flex-row items-center justify-center gap-3 rounded-xl bg-red-600">
+                        <Ionicons name="warning" size={26} color="#fff" />
+                        <Text className="text-xl font-black text-white">SOS – KHẨN CẤP</Text>
+                    </TouchableOpacity>
+
+                    <Text className="mt-2 text-center text-xs text-gray-400">
+                        Nhấn để gửi tín hiệu khẩn cấp
+                    </Text>
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 
@@ -137,31 +139,36 @@ function RequestHistoryItem({
     statusColor,
     type,
     date,
+    isDark,
 }: {
     id: string;
     status: string;
     statusColor: 'green' | 'gray';
     type: string;
     date: string;
+    isDark: boolean;
 }) {
     const bgColor = statusColor === 'green' ? 'bg-green-50' : 'bg-gray-50';
     const textColor =
         statusColor === 'green' ? 'text-green-700' : 'text-gray-700';
+    const cardBg = isDark ? 'bg-gray-800' : 'bg-white';
+    const textClass = isDark ? 'text-white' : 'text-black';
+    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
 
     return (
-        <TouchableOpacity className="flex-row items-center justify-between rounded-xl bg-white p-4 shadow-sm">
+        <TouchableOpacity className={`flex-row items-center justify-between rounded-xl p-4 shadow-sm ${cardBg}`}>
             <View className="flex-1">
                 <View className="mb-1 flex-row items-center gap-2">
                     <View className={`rounded-full ${bgColor} px-2 py-0.5`}>
                         <Text className={`text-xs font-bold ${textColor}`}>{status}</Text>
                     </View>
                 </View>
-                <Text className="font-bold">{id}</Text>
-                <Text className="mt-0.5 text-sm text-text-secondary">
+                <Text className={`font-bold ${textClass}`}>{id}</Text>
+                <Text className={`mt-0.5 text-sm ${subTextClass}`}>
                     {type} • {date}
                 </Text>
             </View>
-            <Ionicons name="chevron-forward" size={20} color="#6b7280" />
+            <Ionicons name="chevron-forward" size={20} color={isDark ? '#9ca3af' : '#6b7280'} />
         </TouchableOpacity>
     );
 }
