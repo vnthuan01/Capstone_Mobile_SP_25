@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hồ sơ Tình nguyện viên</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#DA251D", // Red brand color
+                        "secondary": "#1565C0", // Blue brand color
+                        "success": "#2E7D32", // Green toggle ON color
+                        "background-light": "#f2f4f6",
+                        "background-dark": "#101922",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2632",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 2px 8px rgba(0, 0, 0, 0.04)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #2E7D32;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #2E7D32;
+        }
+
+        .header-curve {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: #f2f4f6;
+            border-top-left-radius: 2rem;
+            border-top-right-radius: 2rem;
+            z-index: 10;
+        }
+
+        .dark .header-curve {
+            background-color: #101922;
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display min-h-screen flex flex-col items-center">
+    <div
+        class="w-full max-w-md h-full min-h-screen bg-background-light dark:bg-background-dark flex flex-col relative overflow-hidden shadow-2xl">
+        <div class="bg-secondary relative pt-4 pb-16">
+            <div class="px-4 flex items-center justify-between mb-4 relative z-20">
+                <div class="w-10 flex items-center justify-start">
+                    <button class="text-white hover:bg-white/10 p-2 rounded-full transition-colors">
+                        <span class="material-symbols-outlined">arrow_back_ios_new</span>
+                    </button>
+                </div>
+                <h1 class="text-white text-lg font-bold">Hồ sơ cá nhân</h1>
+                <div class="w-10 flex items-center justify-end">
+                    <button
+                        class="bg-white/20 hover:bg-white/30 text-white text-xs font-semibold px-3 py-1.5 rounded-full backdrop-blur-sm transition-colors">Sửa</button>
+                </div>
+            </div>
+            <div class="flex flex-col items-center relative z-20 mt-2">
+                <div class="relative mb-3 group cursor-pointer">
+                    <div class="w-24 h-24 rounded-full bg-gray-200 border-4 border-white/20 bg-cover bg-center shadow-lg"
+                        data-alt="Portrait of a smiling volunteer man"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgAMmLW843jYRSCqJVhBN7Z6M2vL0kcZDlZJytKTommnmpLHCbglb2dDdjHh_X33dGmCsBA9H0AWWDCCWbmRFOGzZc1oAeYtGKPFIkh6CIIUCnCOZDwDwTfvd6fpEoStoAjVVMgby1Zv1SHiuErS5Q834DLJ7CUQHhLBreS0LZDfHiuCh4QSNjBDTiqDQhRu9TYYubtVpIj4KPKa0PWs_u8TLi0sNA3gaeQ4aBkHz2nsMIO9fRFcKw45TewbXthpxvmcyiGgtflNg');">
+                    </div>
+                    <div class="absolute bottom-0 right-0 bg-green-500 border-2 border-secondary rounded-full p-0.5 w-6 h-6 flex items-center justify-center shadow-sm"
+                        title="Đã xác minh">
+                        <span class="material-symbols-outlined text-white text-[14px] font-bold">check</span>
+                    </div>
+                </div>
+                <h2 class="text-xl font-bold text-white mb-1">Nguyễn Văn A</h2>
+                <p class="text-blue-100 text-sm mb-1">ID: VN-8821</p>
+                <span
+                    class="bg-white/20 text-white text-xs font-medium px-2.5 py-0.5 rounded-full backdrop-blur-sm">Tình
+                    nguyện viên cấp 2</span>
+            </div>
+            <div class="header-curve"></div>
+        </div>
+        <div class="flex-1 overflow-y-auto pb-24 -mt-2 relative z-10 px-4 space-y-4">
+            <div
+                class="bg-white dark:bg-surface-dark rounded-2xl p-5 shadow-soft border border-gray-100 dark:border-gray-800 flex items-center justify-between gap-4">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <div class="bg-green-100 dark:bg-green-900/30 p-1.5 rounded-full">
+                            <span class="material-symbols-outlined text-success text-xl filled"
+                                style="font-variation-settings: 'FILL' 1">bolt</span>
+                        </div>
+                        <h3 class="text-gray-900 dark:text-white text-base font-bold">Trạng thái sẵn sàng</h3>
+                    </div>
+                    <p class="text-gray-500 dark:text-gray-400 text-xs leading-relaxed pl-1">Nhận thông báo điều phối
+                        khi có thiên tai khẩn cấp.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input checked="" class="sr-only peer toggle-checkbox" type="checkbox" value="" />
+                    <div
+                        class="toggle-label w-12 h-7 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-success transition-colors duration-200">
+                    </div>
+                </label>
+            </div>
+            <div
+                class="bg-white dark:bg-surface-dark rounded-2xl p-5 shadow-soft border border-gray-100 dark:border-gray-800">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-gray-900 dark:text-white text-base font-bold flex items-center gap-2">
+                        <span class="w-1 h-5 bg-primary rounded-full"></span>
+                        Kỹ năng chuyên môn
+                    </h3>
+                    <button class="text-primary text-xs font-bold hover:underline">Thêm mới</button>
+                </div>
+                <div class="flex flex-wrap gap-2.5">
+                    <div
+                        class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-xl">
+                        <span class="material-symbols-outlined text-secondary text-xl">medical_services</span>
+                        <span class="text-gray-700 dark:text-gray-200 text-sm font-medium">Sơ cứu y tế</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-xl">
+                        <span class="material-symbols-outlined text-secondary text-xl">scuba_diving</span>
+                        <span class="text-gray-700 dark:text-gray-200 text-sm font-medium">Lặn cứu hộ</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-xl">
+                        <span class="material-symbols-outlined text-secondary text-xl">local_shipping</span>
+                        <span class="text-gray-700 dark:text-gray-200 text-sm font-medium">Lái xe tải</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-xl">
+                        <span class="material-symbols-outlined text-secondary text-xl">pool</span>
+                        <span class="text-gray-700 dark:text-gray-200 text-sm font-medium">Bơi lội</span>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 px-3 py-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 rounded-xl">
+                        <span class="material-symbols-outlined text-secondary text-xl">map</span>
+                        <span class="text-gray-700 dark:text-gray-200 text-sm font-medium">Thông thạo địa hình</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-2">
+                <div class="flex items-center justify-between mb-3 px-1">
+                    <h3 class="text-gray-900 dark:text-white text-base font-bold flex items-center gap-2">
+                        <span class="w-1 h-5 bg-primary rounded-full"></span>
+                        Chứng chỉ &amp; Huy hiệu
+                    </h3>
+                    <button class="text-gray-400 dark:text-gray-500 text-xs font-medium hover:text-primary">Xem tất
+                        cả</button>
+                </div>
+                <div class="flex gap-3 overflow-x-auto pb-4 scrollbar-hide snap-x">
+                    <div
+                        class="snap-start shrink-0 w-28 flex flex-col items-center gap-2 p-3 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-yellow-50 dark:bg-yellow-900/10 flex items-center justify-center text-yellow-600 dark:text-yellow-400 border border-yellow-100 dark:border-yellow-900/20">
+                            <span class="material-symbols-outlined text-2xl filled"
+                                style="font-variation-settings: 'FILL' 1">military_tech</span>
+                        </div>
+                        <div class="text-center w-full">
+                            <p class="text-gray-900 dark:text-white text-xs font-bold leading-tight truncate">Cứu hộ
+                                2023</p>
+                            <p class="text-yellow-600 dark:text-yellow-500 text-[10px] mt-0.5 font-medium">Xuất sắc</p>
+                        </div>
+                    </div>
+                    <div
+                        class="snap-start shrink-0 w-28 flex flex-col items-center gap-2 p-3 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-50 dark:bg-red-900/10 flex items-center justify-center text-primary dark:text-red-400 border border-red-100 dark:border-red-900/20">
+                            <span class="material-symbols-outlined text-2xl filled"
+                                style="font-variation-settings: 'FILL' 1">health_and_safety</span>
+                        </div>
+                        <div class="text-center w-full">
+                            <p class="text-gray-900 dark:text-white text-xs font-bold leading-tight truncate">Tập huấn Y
+                                tế</p>
+                            <p class="text-primary dark:text-red-400 text-[10px] mt-0.5 font-medium">Hoàn thành</p>
+                        </div>
+                    </div>
+                    <div
+                        class="snap-start shrink-0 w-28 flex flex-col items-center gap-2 p-3 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-card">
+                        <div
+                            class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/10 flex items-center justify-center text-secondary dark:text-blue-400 border border-blue-100 dark:border-blue-900/20">
+                            <span class="material-symbols-outlined text-2xl filled"
+                                style="font-variation-settings: 'FILL' 1">water_drop</span>
+                        </div>
+                        <div class="text-center w-full">
+                            <p class="text-gray-900 dark:text-white text-xs font-bold leading-tight truncate">Cứu nạn
+                                Thủy</p>
+                            <p class="text-secondary dark:text-blue-400 text-[10px] mt-0.5 font-medium">Cơ bản</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pb-4">
+                <h3 class="text-gray-900 dark:text-white text-base font-bold mb-3 px-1 flex items-center gap-2">
+                    <span class="w-1 h-5 bg-primary rounded-full"></span>
+                    Thông tin liên hệ
+                </h3>
+                <div
+                    class="bg-white dark:bg-surface-dark rounded-2xl overflow-hidden shadow-soft border border-gray-100 dark:border-gray-800 divide-y divide-gray-50 dark:divide-gray-800/50">
+                    <div class="flex items-center p-4 gap-4">
+                        <div
+                            class="w-9 h-9 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center shrink-0 text-secondary dark:text-gray-400">
+                            <span class="material-symbols-outlined text-lg">call</span>
+                        </div>
+                        <div class="flex-1">
+                            <p
+                                class="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-0.5">
+                                Số điện thoại</p>
+                            <p class="text-gray-900 dark:text-white font-semibold text-sm">0912 *** 789</p>
+                        </div>
+                        <button
+                            class="text-secondary text-xs font-bold bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-lg">Hiện</button>
+                    </div>
+                    <div class="flex items-center p-4 gap-4">
+                        <div
+                            class="w-9 h-9 rounded-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center shrink-0 text-secondary dark:text-gray-400">
+                            <span class="material-symbols-outlined text-lg">mail</span>
+                        </div>
+                        <div class="flex-1">
+                            <p
+                                class="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-0.5">
+                                Email</p>
+                            <p class="text-gray-900 dark:text-white font-semibold text-sm">nguyenvana@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 gap-4 bg-red-50/50 dark:bg-red-900/10">
+                        <div
+                            class="w-9 h-9 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center shrink-0 text-primary dark:text-red-400">
+                            <span class="material-symbols-outlined text-lg">emergency</span>
+                        </div>
+                        <div class="flex-1">
+                            <p
+                                class="text-red-500 dark:text-red-400/70 text-[10px] font-bold uppercase tracking-wider mb-0.5">
+                                Liên hệ khẩn cấp</p>
+                            <p class="text-red-700 dark:text-red-300 font-semibold text-sm">Chị Lan (Vợ) - 0988 123 456
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="sticky bottom-0 bg-white dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800 px-6 py-3 flex justify-around items-center z-50 shadow-[0_-4px_20px_-2px_rgba(0,0,0,0.05)]">
+            <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-2xl">home</span>
+                <span class="text-[10px] font-medium">Trang chủ</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-2xl">map</span>
+                <span class="text-[10px] font-medium">Bản đồ</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 text-primary">
+                <span class="material-symbols-outlined text-2xl filled"
+                    style="font-variation-settings: 'FILL' 1">person</span>
+                <span class="text-[10px] font-medium">Hồ sơ</span>
+            </button>
+            <button class="flex flex-col items-center gap-1 text-gray-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-2xl">notifications</span>
+                <span class="text-[10px] font-medium">Thông báo</span>
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 import Header from '@/src/components/header/header';
 import ViewRequestRescueScreen from '@/src/components/user/ViewRequestRescueScreen';
-import { useThemeStore } from '@/src/store/themeStore';
+import { useTheme } from '@/src/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -17,15 +17,10 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
     const [currentScreen, setCurrentScreen] =
         useState<RequestsScreenType>('list');
 
-    const { mode } = useThemeStore();
-    const isDark = mode === 'dark';
+    const { colors, isDark } = useTheme();
 
     // Styles
-    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
-    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
+    const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200'; // Keep or refactor inline
 
     if (currentScreen === 'detail') {
         return (
@@ -34,7 +29,10 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
     }
 
     return (
-        <View className={`flex-1 ${bgClass}`}>
+        <View
+            className="flex-1"
+            style={{ backgroundColor: colors.background }}
+        >
             <Header
                 title="Theo dõi yêu cầu"
                 subtitle="Danh sách yêu cầu cứu trợ của bạn"
@@ -48,10 +46,11 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
 
                 {/* Active Request */}
                 <View className="mt-4 px-4">
-                    <Text className={`mb-3 text-base font-bold ${textClass}`}>Đang hoạt động</Text>
+                    <Text className="mb-3 text-base font-bold" style={{ color: colors.text }}>Đang hoạt động</Text>
                     <TouchableOpacity
                         onPress={() => setCurrentScreen('detail')}
-                        className={`overflow-hidden rounded-xl shadow-sm ${cardBgClass}`}
+                        className="overflow-hidden rounded-xl shadow-sm"
+                        style={{ backgroundColor: colors.card }}
                     >
                         {/* Map Preview */}
                         <View className={`h-32 items-center justify-center ${mapPlaceholderBg}`}>
@@ -74,8 +73,9 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
                                             </Text>
                                         </View>
                                     </View>
-                                    <Text className={`text-lg font-bold ${textClass}`}>Yêu cầu cứu trợ #001</Text>
-                                    <Text className={`mt-1 text-sm ${subTextClass}`}>
+
+                                    <Text className="text-lg font-bold" style={{ color: colors.text }}>Yêu cầu cứu trợ #001</Text>
+                                    <Text className="mt-1 text-sm" style={{ color: colors.textSecondary }}>
                                         Lương thực, Y tế
                                     </Text>
                                 </View>
@@ -84,7 +84,7 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
 
                             {/* Status */}
                             <View className={`mt-3 flex-row items-center gap-2 rounded-lg p-3 ${isDark ? 'bg-blue-900/30' : 'bg-blue-50'}`}>
-                                <Ionicons name="car" size={20} color="#137fec" />
+                                <Ionicons name="car" size={20} color={colors.primary} />
                                 <Text className={`flex-1 text-sm font-medium ${isDark ? 'text-blue-300' : 'text-primary'}`}>
                                     Đội cứu hộ đang đến - Dự kiến 15 phút
                                 </Text>
@@ -95,7 +95,7 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
 
                 {/* Past Requests */}
                 <View className="mt-6 px-4">
-                    <Text className={`mb-3 text-base font-bold ${textClass}`}>Lịch sử</Text>
+                    <Text className="mb-3 text-base font-bold" style={{ color: colors.text }}>Lịch sử</Text>
 
                     <View className="gap-3">
                         <RequestHistoryItem
@@ -104,15 +104,13 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
                             statusColor="green"
                             type="Cứu hộ"
                             date="15/01/2026"
-                            isDark={isDark}
                         />
                         <RequestHistoryItem
                             id="#003"
                             status="Đã hủy"
-                            statusColor="gray"
+                            statusColor="red"
                             type="Chỗ ở"
                             date="14/01/2026"
-                            isDark={isDark}
                         />
                     </View>
                 </View>
@@ -128,8 +126,8 @@ export default function RequestsScreen({ onBack }: RequestsScreenProps) {
                         Nhấn để gửi tín hiệu khẩn cấp
                     </Text>
                 </View>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     );
 }
 
@@ -139,32 +137,34 @@ function RequestHistoryItem({
     statusColor,
     type,
     date,
-    isDark,
 }: {
     id: string;
     status: string;
-    statusColor: 'green' | 'gray';
+    statusColor: 'green' | 'gray' | 'red';
     type: string;
     date: string;
-    isDark: boolean;
+    // isDark prop removed as we use hook
 }) {
+    const { colors, isDark } = useTheme();
+
+    // Derived styles based on statusColor
     const bgColor = statusColor === 'green' ? 'bg-green-50' : 'bg-gray-50';
     const textColor =
-        statusColor === 'green' ? 'text-green-700' : 'text-gray-700';
-    const cardBg = isDark ? 'bg-gray-800' : 'bg-white';
-    const textClass = isDark ? 'text-white' : 'text-black';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
+        statusColor === 'green' ? 'text-green-700' : statusColor === 'red' ? 'text-red-700' : 'text-gray-700';
 
     return (
-        <TouchableOpacity className={`flex-row items-center justify-between rounded-xl p-4 shadow-sm ${cardBg}`}>
+        <TouchableOpacity
+            className="flex-row items-center justify-between rounded-xl p-4 shadow-sm"
+            style={{ backgroundColor: colors.card }}
+        >
             <View className="flex-1">
                 <View className="mb-1 flex-row items-center gap-2">
                     <View className={`rounded-full ${bgColor} px-2 py-0.5`}>
                         <Text className={`text-xs font-bold ${textColor}`}>{status}</Text>
                     </View>
                 </View>
-                <Text className={`font-bold ${textClass}`}>{id}</Text>
-                <Text className={`mt-0.5 text-sm ${subTextClass}`}>
+                <Text className="font-bold" style={{ color: colors.text }}>{id}</Text>
+                <Text className="mt-0.5 text-sm" style={{ color: colors.textSecondary }}>
                     {type} • {date}
                 </Text>
             </View>

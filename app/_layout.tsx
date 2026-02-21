@@ -4,6 +4,7 @@ import { useCallback, useEffect } from 'react';
 import { StatusBar } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from '../src/context/ThemeContext';
 import { authService } from '../src/services/authService';
 import { useAuthStore } from '../src/store/authStore';
 
@@ -42,8 +43,10 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <StatusBar barStyle="light-content" backgroundColor="#161616" />
-        <Slot />
+        <ThemeProvider>
+          <StatusBar barStyle="light-content" backgroundColor="#161616" />
+          <Slot />
+        </ThemeProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

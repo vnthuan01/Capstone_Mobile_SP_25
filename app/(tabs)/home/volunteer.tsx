@@ -3,6 +3,7 @@ import UpdateTaskStatusScreen from '@/src/components/volunteer/UpdateTaskStatusS
 import ViewTasksScreen from '@/src/components/volunteer/ViewTasksScreen';
 import { useAuthStore } from '@/src/store/authStore';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,6 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type VolunteerScreen = 'home' | 'tasks' | 'update';
 
 export default function VolunteerHome() {
+  const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
   const user = useAuthStore((s) => s.user);
   const [currentScreen, setCurrentScreen] =
@@ -32,7 +34,7 @@ export default function VolunteerHome() {
       <View className="flex-row items-center justify-between bg-white px-4 py-3 shadow-sm">
         <View className="flex-row items-center gap-3">
           <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-            <Ionicons name="person" size={20} color="#137fec" />
+            <Ionicons name="person" size={20} color="#DA251D" />
           </View>
           <View>
             <Text className="text-lg font-bold">
@@ -96,6 +98,11 @@ export default function VolunteerHome() {
             label="Cập nhật trạng thái"
             onPress={() => setCurrentScreen('update')}
           />
+          <QuickAction
+            icon="heart"
+            label="Ủng hộ cứu trợ"
+            onPress={() => router.push('/donate')}
+          />
         </View>
       </View>
     </ScrollView>
@@ -129,7 +136,7 @@ function QuickAction({
       onPress={onPress}
       className="h-28 w-[48%] items-center justify-center gap-2 rounded-xl bg-white shadow-sm"
     >
-      <Ionicons name={icon} size={24} color="#137fec" />
+      <Ionicons name={icon} size={24} color="#DA251D" />
       <Text className="text-sm font-semibold">{label}</Text>
     </TouchableOpacity>
   );

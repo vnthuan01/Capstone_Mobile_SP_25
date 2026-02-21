@@ -1,6 +1,6 @@
 import '@/global.css';
 import Header from '@/src/components/header/header';
-import { useThemeStore } from '@/src/store/themeStore';
+import { useTheme } from '@/src/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -13,20 +13,17 @@ export default function ViewTasksScreen({
     onBack,
 }: ViewTasksScreenProps = {}) {
     const { bottom } = useSafeAreaInsets();
-    const { mode } = useThemeStore();
-    const isDark = mode === 'dark';
+    const { colors, isDark } = useTheme();
 
     // Theme Styles
-    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
-    const textClass = isDark ? 'text-white' : 'text-black';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-gray-500';
-    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-200';
     const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
     const iconWrapperBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
 
     return (
-        <View className={`flex-1 ${bgClass}`}>
+        <View
+            className="flex-1"
+            style={{ backgroundColor: colors.background }}
+        >
             <Header
                 title="Chi tiết nhiệm vụ"
                 onBack={onBack}
@@ -40,7 +37,10 @@ export default function ViewTasksScreen({
             >
                 {/* Citizen Info Card */}
                 <View className="p-4">
-                    <View className={`flex-col gap-4 rounded-xl p-5 shadow-sm ${cardBgClass}`}>
+                    <View
+                        className="flex-col gap-4 rounded-xl p-5 shadow-sm"
+                        style={{ backgroundColor: colors.card }}
+                    >
                         {/* Header with Priority Badge */}
                         <View className="flex-row items-start justify-between">
                             <View className="flex-col gap-1">
@@ -62,12 +62,12 @@ export default function ViewTasksScreen({
                                         </Text>
                                     </View>
                                 </View>
-                                <Text className={`text-xl font-bold leading-tight ${textClass}`}>
+                                <Text className="text-xl font-bold leading-tight" style={{ color: colors.text }}>
                                     Nguyễn Văn A
                                 </Text>
                             </View>
                             <TouchableOpacity className={`h-10 w-10 items-center justify-center rounded-full ${iconWrapperBg}`}>
-                                <Ionicons name="call" size={20} color="#137fec" />
+                                <Ionicons name="call" size={20} color={colors.primary} />
                             </TouchableOpacity>
                         </View>
 
@@ -79,7 +79,7 @@ export default function ViewTasksScreen({
                                 color="#617589"
                                 style={{ marginTop: 2 }}
                             />
-                            <Text className={`flex-1 font-normal leading-normal ${textClass}`}>
+                            <Text className="flex-1 font-normal leading-normal" style={{ color: colors.text }}>
                                 123 Đường Trần Phú, Quận Hải Châu, Đà Nẵng
                             </Text>
                         </View>
@@ -90,7 +90,7 @@ export default function ViewTasksScreen({
                         {/* Request Details */}
                         <View className="grid grid-cols-1 gap-4">
                             <View className="flex-col gap-1">
-                                <Text className={`text-xs font-medium uppercase tracking-wider ${subTextClass}`}>
+                                <Text className="text-xs font-medium uppercase tracking-wider" style={{ color: colors.textSecondary }}>
                                     Loại hỗ trợ
                                 </Text>
                                 <View className="flex-row flex-wrap gap-2">
@@ -109,11 +109,17 @@ export default function ViewTasksScreen({
                                 </View>
                             </View>
                             <View className="flex-col gap-1">
-                                <Text className={`text-xs font-medium uppercase tracking-wider ${subTextClass}`}>
+                                <Text className="text-xs font-medium uppercase tracking-wider" style={{ color: colors.textSecondary }}>
                                     Ghi chú
                                 </Text>
-                                <View className={`rounded-lg border p-3 ${isDark ? 'border-gray-700 bg-gray-700' : 'border-gray-100 bg-gray-50'}`}>
-                                    <Text className={`text-sm font-normal leading-relaxed ${textClass}`}>
+                                <View
+                                    className="rounded-lg border p-3"
+                                    style={{
+                                        borderColor: colors.border,
+                                        backgroundColor: isDark ? colors.card : '#f9fafb'
+                                    }}
+                                >
+                                    <Text className="text-sm font-normal leading-relaxed" style={{ color: colors.text }}>
                                         "Gia đình có người già và trẻ nhỏ, nước đang dâng cao khoảng
                                         0.5m trước cửa nhà."
                                     </Text>
@@ -126,11 +132,14 @@ export default function ViewTasksScreen({
                 {/* Map & Route Section */}
                 <View className="px-4 pb-4">
                     <View className="flex-col gap-3">
-                        <Text className={`px-1 text-base font-bold ${textClass}`}>Lộ trình di chuyển</Text>
-                        <View className={`group relative h-64 w-full overflow-hidden rounded-xl border shadow-sm ${borderClass}`}>
+                        <Text className="px-1 text-base font-bold" style={{ color: colors.text }}>Lộ trình di chuyển</Text>
+                        <View
+                            className="group relative h-64 w-full overflow-hidden rounded-xl border shadow-sm"
+                            style={{ borderColor: colors.border }}
+                        >
                             {/* AI Route Badge */}
                             <View className={`absolute left-3 top-3 z-10 flex-row items-center gap-2 rounded-lg border border-blue-100 px-3 py-1.5 shadow-sm backdrop-blur-sm ${isDark ? 'bg-gray-900/90' : 'bg-white/90'}`}>
-                                <Ionicons name="sparkles" size={18} color="#137fec" />
+                                <Ionicons name="sparkles" size={18} color={colors.primary} />
                                 <Text className="text-xs font-bold text-primary">AI Gợi ý</Text>
                             </View>
 
@@ -140,14 +149,20 @@ export default function ViewTasksScreen({
                             </View>
 
                             {/* Location Button */}
-                            <View className={`absolute bottom-3 right-3 z-10 rounded-lg p-2 shadow-md ${cardBgClass}`}>
+                            <View
+                                className="absolute bottom-3 right-3 z-10 rounded-lg p-2 shadow-md"
+                                style={{ backgroundColor: colors.card }}
+                            >
                                 <Ionicons name="locate" size={20} color="#6b7280" />
                             </View>
                         </View>
 
                         {/* Stats */}
                         <View className="grid grid-cols-2 gap-3">
-                            <View className={`items-center rounded-xl border border-blue-100 p-3 text-center ${isDark ? 'bg-gray-800' : 'bg-blue-50'}`}>
+                            <View
+                                className="items-center rounded-xl border border-blue-100 p-3 text-center"
+                                style={{ backgroundColor: isDark ? colors.card : '#eff6ff' }}
+                            >
                                 <Text className="text-2xl font-bold leading-tight text-primary">
                                     1.2 km
                                 </Text>
@@ -158,7 +173,10 @@ export default function ViewTasksScreen({
                                     </Text>
                                 </View>
                             </View>
-                            <View className={`items-center rounded-xl border border-blue-100 p-3 text-center ${isDark ? 'bg-gray-800' : 'bg-blue-50'}`}>
+                            <View
+                                className="items-center rounded-xl border border-blue-100 p-3 text-center"
+                                style={{ backgroundColor: isDark ? colors.card : '#eff6ff' }}
+                            >
                                 <Text className="text-2xl font-bold leading-tight text-primary">
                                     5 phút
                                 </Text>
@@ -174,15 +192,22 @@ export default function ViewTasksScreen({
 
             {/* Sticky Bottom Actions */}
             <View
-                style={{ paddingBottom: bottom + 16 }}
-                className={`absolute bottom-0 left-0 w-full border-t border-gray-200 p-4 pb-6 shadow-lg ${isDark ? 'bg-gray-900 border-gray-700' : 'bg-white'}`}
+                style={{
+                    paddingBottom: bottom + 16,
+                    backgroundColor: isDark ? colors.background : '#ffffff',
+                    borderTopColor: colors.border
+                }}
+                className="absolute bottom-0 left-0 w-full border-t p-4 pb-6 shadow-lg"
             >
                 <View className="flex-row gap-3">
-                    <TouchableOpacity className={`flex-1 flex-row items-center justify-center gap-2 overflow-hidden rounded-xl border-2 border-amber-500 px-4 py-3 ${isDark ? 'bg-gray-800' : 'bg-white'}`}>
+                    <TouchableOpacity
+                        className="flex-1 flex-row items-center justify-center gap-2 overflow-hidden rounded-xl border-2 border-amber-500 px-4 py-3"
+                        style={{ backgroundColor: colors.background }}
+                    >
                         <Ionicons name="warning" size={20} color="#d97706" />
                         <Text className="font-bold text-amber-600">Báo sự cố</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity className="flex-[2] flex-row items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-4 py-3 shadow-lg shadow-blue-500/30">
+                    <TouchableOpacity className="flex-[2] flex-row items-center justify-center gap-2 overflow-hidden rounded-xl bg-primary px-4 py-3 shadow-lg shadow-primary/30">
                         <Ionicons name="navigate" size={20} color="#fff" />
                         <Text className="font-bold text-white">Bắt đầu điều hướng</Text>
                     </TouchableOpacity>

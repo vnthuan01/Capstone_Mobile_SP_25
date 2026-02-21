@@ -1,6 +1,6 @@
 import '@/global.css';
 import Header from '@/src/components/header/header';
-import { useThemeStore } from '@/src/store/themeStore';
+import { useTheme } from '@/src/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -14,20 +14,17 @@ export default function ViewRequestRescueScreen({
     onBack,
 }: ViewRequestRescueScreenProps = {}) {
     const { bottom } = useSafeAreaInsets();
-    const { mode } = useThemeStore();
-    const isDark = mode === 'dark';
+    const { colors, isDark } = useTheme();
 
     // Theme Styles
-    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
-    const textClass = isDark ? 'text-white' : 'text-black';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-gray-500';
-    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
     const mapPlaceholderBg = isDark ? 'bg-gray-700' : 'bg-gray-200';
     const overlayGradientClass = isDark ? 'from-gray-900' : 'from-white';
 
     return (
-        <View className={`flex-1 ${bgClass}`}>
+        <View
+            className="flex-1"
+            style={{ backgroundColor: colors.background }}
+        >
             <Header
                 title="Theo dõi yêu cầu"
                 onBack={onBack}
@@ -47,23 +44,40 @@ export default function ViewRequestRescueScreen({
                     {/* Gradient Overlay */}
                     <View className={`absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t ${overlayGradientClass}`} />
                     {/* ETA Badge */}
-                    <View className={`absolute bottom-4 left-4 flex-row items-center gap-2 rounded-full border ${borderClass} ${cardBgClass} px-4 py-2 shadow-lg`}>
-                        <Ionicons name="time" size={20} color="#137fec" />
+                    <View
+                        className="absolute bottom-4 left-4 flex-row items-center gap-2 rounded-full border px-4 py-2 shadow-lg"
+                        style={{ backgroundColor: colors.card, borderColor: colors.border }}
+                    >
+                        <Ionicons name="time" size={20} color={colors.primary} />
                         <View>
-                            <Text className={`text-xs font-medium uppercase tracking-wider ${subTextClass}`}>
+                            <Text
+                                className="text-xs font-medium uppercase tracking-wider"
+                                style={{ color: colors.textSecondary }}
+                            >
                                 Dự kiến đến
                             </Text>
-                            <Text className={`text-sm font-bold ${textClass}`}>15 phút</Text>
+                            <Text
+                                className="text-sm font-bold"
+                                style={{ color: colors.text }}
+                            >
+                                15 phút
+                            </Text>
                         </View>
                     </View>
                 </View>
 
                 {/* Status Headline */}
                 <View className="px-4 pb-2 pt-4">
-                    <Text className={`text-[26px] font-bold leading-tight ${textClass}`}>
+                    <Text
+                        className="text-[26px] font-bold leading-tight"
+                        style={{ color: colors.text }}
+                    >
                         Đội cứu hộ đang đến
                     </Text>
-                    <Text className={`mt-1 text-sm ${subTextClass}`}>
+                    <Text
+                        className="mt-1 text-sm"
+                        style={{ color: colors.textSecondary }}
+                    >
                         Đừng lo lắng, chúng tôi đang trên đường tới vị trí của bạn.
                     </Text>
                 </View>
@@ -74,14 +88,19 @@ export default function ViewRequestRescueScreen({
                         <View className="flex-row items-center gap-4">
                             <View className="relative">
                                 <View className={`h-14 w-14 items-center justify-center rounded-full border-2 border-white bg-gray-300 shadow-sm`}>
-                                    <Ionicons name="person" size={28} color="#137fec" />
+                                    <Ionicons name="person" size={28} color={colors.primary} />
                                 </View>
                                 <View className="absolute bottom-0 right-0 h-4 w-4 rounded-full border-2 border-white bg-green-500" />
                             </View>
                             <View className="flex-1">
-                                <Text className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>Nguyễn Văn A</Text>
+                                <Text
+                                    className="text-lg font-bold"
+                                    style={{ color: colors.text }}
+                                >
+                                    Nguyễn Văn A
+                                </Text>
                                 <View className="flex-row items-center gap-1">
-                                    <Ionicons name="checkmark-circle" size={18} color="#137fec" />
+                                    <Ionicons name="checkmark-circle" size={18} color={colors.primary} />
                                     <Text className="text-sm font-medium text-primary">
                                         Tình nguyện viên
                                     </Text>
@@ -96,9 +115,12 @@ export default function ViewRequestRescueScreen({
                                 <Ionicons name="call" size={20} color="#fff" />
                                 <Text className="font-bold text-white">Gọi điện</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity className={`h-12 flex-1 flex-row items-center justify-center gap-2 rounded-xl border ${borderClass} ${cardBgClass}`}>
-                                <Ionicons name="chatbubble-outline" size={20} color={isDark ? '#fff' : '#111418'} />
-                                <Text className={`font-bold ${textClass}`}>Nhắn tin</Text>
+                            <TouchableOpacity
+                                className="h-12 flex-1 flex-row items-center justify-center gap-2 rounded-xl border"
+                                style={{ backgroundColor: colors.card, borderColor: colors.border }}
+                            >
+                                <Ionicons name="chatbubble-outline" size={20} color={colors.text} />
+                                <Text className="font-bold" style={{ color: colors.text }}>Nhắn tin</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -108,7 +130,7 @@ export default function ViewRequestRescueScreen({
 
                 {/* Timeline Progress */}
                 <View className="px-4 py-4">
-                    <Text className={`mb-4 text-lg font-bold ${textClass}`}>Tiến trình</Text>
+                    <Text className="mb-4 text-lg font-bold" style={{ color: colors.text }}>Tiến trình</Text>
                     <View className="relative flex-col gap-0">
                         {/* Step 3 - Current */}
                         <View className="flex-row gap-4">
@@ -120,7 +142,7 @@ export default function ViewRequestRescueScreen({
                             </View>
                             <View className="flex-1 pb-6">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className={`text-base font-bold ${textClass}`}>
+                                    <Text className="text-base font-bold" style={{ color: colors.text }}>
                                         Đội cứu hộ đang di chuyển
                                     </Text>
                                     <View className="rounded-md bg-primary/10 px-2 py-1">
@@ -129,7 +151,7 @@ export default function ViewRequestRescueScreen({
                                         </Text>
                                     </View>
                                 </View>
-                                <Text className={`mt-1 text-sm ${subTextClass}`}>
+                                <Text className="mt-1 text-sm" style={{ color: colors.textSecondary }}>
                                     Đang cách bạn 3.5km
                                 </Text>
                             </View>
@@ -145,14 +167,14 @@ export default function ViewRequestRescueScreen({
                             </View>
                             <View className="flex-1 pb-6 opacity-70">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className={`text-base font-medium ${textClass}`}>
+                                    <Text className="text-base font-medium" style={{ color: colors.text }}>
                                         Đã phân công tình nguyện viên
                                     </Text>
                                     <Text className="text-xs font-medium text-gray-400">
                                         09:15
                                     </Text>
                                 </View>
-                                <Text className={`mt-1 text-sm ${subTextClass}`}>
+                                <Text className="mt-1 text-sm" style={{ color: colors.textSecondary }}>
                                     TNV Nguyễn Văn A đã nhận yêu cầu
                                 </Text>
                             </View>
@@ -167,14 +189,14 @@ export default function ViewRequestRescueScreen({
                             </View>
                             <View className="flex-1 pb-2 opacity-70">
                                 <View className="flex-row items-start justify-between">
-                                    <Text className={`text-base font-medium ${textClass}`}>
+                                    <Text className="text-base font-medium" style={{ color: colors.text }}>
                                         Yêu cầu đã được gửi
                                     </Text>
                                     <Text className="text-xs font-medium text-gray-400">
                                         09:00
                                     </Text>
                                 </View>
-                                <Text className={`mt-1 text-sm ${subTextClass}`}>
+                                <Text className="mt-1 text-sm" style={{ color: colors.textSecondary }}>
                                     Hệ thống đã ghi nhận vị trí của bạn
                                 </Text>
                             </View>
@@ -185,11 +207,18 @@ export default function ViewRequestRescueScreen({
 
             {/* Sticky Bottom Actions */}
             <View
-                style={{ paddingBottom: bottom + 16 }}
-                className={`absolute bottom-0 left-0 right-0 border-t ${borderClass} ${isDark ? 'bg-gray-900/90' : 'bg-white/90'} p-4`}
+                style={{
+                    paddingBottom: bottom + 16,
+                    backgroundColor: isDark ? 'rgba(17, 24, 39, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                    borderTopColor: colors.border
+                }}
+                className="absolute bottom-0 left-0 right-0 border-t p-4"
             >
                 <View className="flex-col gap-3">
-                    <TouchableOpacity className={`h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-red-500 ${cardBgClass}`}>
+                    <TouchableOpacity
+                        className="h-12 w-full flex-row items-center justify-center gap-2 rounded-xl border border-red-500"
+                        style={{ backgroundColor: colors.card }}
+                    >
                         <Ionicons name="close-circle-outline" size={20} color="#ef4444" />
                         <Text className="text-sm font-bold text-red-500">
                             Hủy yêu cầu cứu hộ

@@ -1,4 +1,4 @@
-import { useThemeStore } from '@/src/store/themeStore';
+import { useTheme } from '@/src/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -19,20 +19,21 @@ export default function Header({
     rightComponent,
 }: HeaderProps) {
     const { top } = useSafeAreaInsets();
-    const { mode } = useThemeStore();
-    const isDark = mode === 'dark';
+    const { colors, isDark } = useTheme();
 
     // Theme Styles
-    const bgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
-    const arrowBgClass = isDark ? 'bg-gray-700' : 'bg-gray-100';
+    // We mix inline styles for dynamic theme colors with Tailwind for layout
+    const arrowBgClass = isDark ? 'bg-gray-700' : 'bg-gray-100'; // Keep or move to colors if we have secondary background
 
     return (
         <View
-            style={{ paddingTop: top + 10, paddingBottom: 10 }}
-            className={`px-4 shadow-sm border-b ${bgClass} ${borderClass}`}
+            style={{
+                paddingTop: top + 10,
+                paddingBottom: 10,
+                backgroundColor: colors.card,
+                borderBottomColor: colors.border
+            }}
+            className={`px-4 shadow-sm border-b`}
         >
             <View className={`flex-row items-center ${center ? 'justify-between' : 'gap-3'}`}>
                 {onBack && (
@@ -40,16 +41,22 @@ export default function Header({
                         onPress={onBack}
                         className={`h-10 w-10 items-center justify-center rounded-full ${arrowBgClass}`}
                     >
-                        <Ionicons name="arrow-back" size={24} color={isDark ? '#fff' : '#111418'} />
+                        <Ionicons name="arrow-back" size={24} color={colors.text} />
                     </TouchableOpacity>
                 )}
 
                 <View className={center ? 'flex-1 items-center' : 'flex-1'}>
-                    <Text className={`font-bold ${center ? 'text-lg text-center' : 'text-xl'} ${textClass}`}>
+                    <Text
+                        style={{ color: colors.text }}
+                        className={`font-bold ${center ? 'text-lg text-center' : 'text-xl'}`}
+                    >
                         {title}
                     </Text>
                     {subtitle && (
-                        <Text className={`text-sm ${center ? 'text-center' : ''} ${subTextClass}`}>
+                        <Text
+                            style={{ color: colors.textSecondary }}
+                            className={`text-sm ${center ? 'text-center' : ''}`}
+                        >
                             {subtitle}
                         </Text>
                     )}

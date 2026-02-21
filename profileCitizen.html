@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cài đặt Tài khoản Citizen</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;700&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#DA251D", "secondary": "#1565C0", "background-light": "#F9FAFB", "background-dark": "#101922",
+                        "card-white": "#FFFFFF",
+                        "icon-grey": "#424242",
+                        "danger-red": "#D32F2F",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white antialiased min-h-screen flex flex-col">
+    <header class="flex items-center justify-between bg-secondary dark:bg-[#1C252E] p-4 sticky top-0 z-10 shadow-md">
+        <div class="flex size-10 shrink-0 items-center justify-center cursor-pointer text-white">
+            <span class="material-symbols-outlined text-[24px]">arrow_back_ios_new</span>
+        </div>
+        <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Cài đặt Tài
+            khoản</h2>
+    </header>
+    <main class="flex-1 w-full max-w-md mx-auto p-4 flex flex-col gap-6">
+        <section
+            class="flex flex-col items-center justify-center gap-4 py-6 bg-secondary dark:bg-[#1C252E] -mx-4 -mt-4 rounded-b-3xl shadow-sm text-white mb-2">
+            <div class="relative">
+                <div class="bg-center bg-no-repeat bg-cover rounded-full h-24 w-24 ring-4 ring-white/20 shadow-lg"
+                    data-alt="Portrait of a smiling man"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDL02lmCb4zbZqFuJlSxJ_UMFOwrYIXWjI-vc3aa1u3c_SC02YRuuDJ5nl8WLUnxK76VrvxLFiz14NnHnNbsII8j5CMFBbmzwMQwHYRFsYdZ33jLSoMCzZUJ74IWNWdgA4Cq1OzWgUORKgBuMIyfCQLPBwxyudqdpIMKwiuY2ka2MD-WPn7Dk5zyWf9Gk_NZTyOAn24wy02rr08YOwq-K807pRYg7hHYRbCxUB6n2Sb6OBv4y77KvOM8y0dsfEfZCjSn77nlXpsJdY");'>
+                </div>
+                <div
+                    class="absolute bottom-0 right-0 bg-white rounded-full p-1 flex items-center justify-center border-2 border-secondary dark:border-[#1C252E]">
+                    <span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+                </div>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <p class="text-white text-xl font-bold leading-tight">Nguyễn Văn A</p>
+                <p class="text-white/80 text-sm font-normal mt-1 bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
+                    ID: 123-456-789</p>
+            </div>
+        </section>
+        <section>
+            <h3 class="text-[#637588] dark:text-[#9CA3AF] text-sm font-bold uppercase tracking-wider px-2 mb-2">Thông
+                tin cá nhân</h3>
+            <div
+                class="bg-card-white dark:bg-[#1C252E] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800">
+                <button
+                    class="w-full flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
+                    <div
+                        class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 text-icon-grey dark:text-gray-300 shrink-0 size-10">
+                        <span class="material-symbols-outlined">edit_note</span>
+                    </div>
+                    <div class="flex flex-col items-start flex-1">
+                        <p class="text-[#111418] dark:text-white text-base font-medium">Cập nhật hồ sơ</p>
+                        <p class="text-[#637588] dark:text-[#9CA3AF] text-xs mt-0.5">Chỉnh sửa tên, địa chỉ, liên hệ</p>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-gray-400 dark:text-gray-600 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                </button>
+            </div>
+        </section>
+        <section>
+            <h3 class="text-[#637588] dark:text-[#9CA3AF] text-sm font-bold uppercase tracking-wider px-2 mb-2">Bảo mật
+                &amp; An toàn</h3>
+            <div
+                class="bg-card-white dark:bg-[#1C252E] rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 divide-y divide-gray-100 dark:divide-gray-800">
+                <button
+                    class="w-full flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
+                    <div
+                        class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 text-icon-grey dark:text-gray-300 shrink-0 size-10">
+                        <span class="material-symbols-outlined">lock_reset</span>
+                    </div>
+                    <div class="flex flex-col items-start flex-1">
+                        <p class="text-[#111418] dark:text-white text-base font-medium">Đổi mật khẩu</p>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-gray-400 dark:text-gray-600 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                </button>
+                <button
+                    class="w-full flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-white/5 transition-colors group">
+                    <div
+                        class="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 text-icon-grey dark:text-gray-300 shrink-0 size-10">
+                        <span class="material-symbols-outlined">quiz</span>
+                    </div>
+                    <div class="flex flex-col items-start flex-1">
+                        <p class="text-[#111418] dark:text-white text-base font-medium">Thiết lập Câu hỏi Bảo mật</p>
+                        <p class="text-[#637588] dark:text-[#9CA3AF] text-xs mt-0.5">Dùng để khôi phục tài khoản</p>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-gray-400 dark:text-gray-600 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                </button>
+            </div>
+        </section>
+        <section class="mb-8">
+            <h3 class="text-[#637588] dark:text-[#9CA3AF] text-sm font-bold uppercase tracking-wider px-2 mb-2">Vùng
+                nguy hiểm</h3>
+            <div
+                class="bg-card-white dark:bg-[#1C252E] rounded-xl overflow-hidden shadow-sm border border-red-100 dark:border-red-900/30">
+                <button
+                    class="w-full flex items-center gap-4 p-4 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors group"
+                    onclick="alert('Tính năng này sẽ vô hiệu hóa tài khoản của bạn. Bạn có chắc chắn không?')">
+                    <div
+                        class="flex items-center justify-center rounded-lg bg-red-50 dark:bg-red-900/20 text-danger-red shrink-0 size-10">
+                        <span class="material-symbols-outlined">person_off</span>
+                    </div>
+                    <div class="flex flex-col items-start flex-1">
+                        <p class="text-danger-red font-medium">Vô hiệu hóa tài khoản</p>
+                        <p class="text-red-400 dark:text-red-300/60 text-xs mt-0.5">Tạm dừng truy cập vào hệ thống</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+    </main>
+    <div
+        class="sticky bottom-0 bg-white dark:bg-[#1C252E] border-t border-gray-100 dark:border-gray-800 pb-safe pt-2 px-6 flex justify-between items-center h-16 w-full shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-secondary cursor-pointer">
+            <span class="material-symbols-outlined text-[24px]">home</span>
+            <span class="text-[10px] font-medium">Trang chủ</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-secondary cursor-pointer">
+            <span class="material-symbols-outlined text-[24px]">sos</span>
+            <span class="text-[10px] font-medium">Cứu trợ</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-gray-400 hover:text-secondary cursor-pointer">
+            <span class="material-symbols-outlined text-[24px]">notifications</span>
+            <span class="text-[10px] font-medium">Thông báo</span>
+        </div>
+        <div class="flex flex-col items-center gap-1 text-secondary cursor-pointer">
+            <span class="material-symbols-outlined text-[24px] fill-current">settings</span>
+            <span class="text-[10px] font-medium">Cài đặt</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

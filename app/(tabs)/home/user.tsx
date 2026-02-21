@@ -1,6 +1,7 @@
 import '@/global.css';
 import ViewRequestRescueScreen from '@/src/components/user/ViewRequestRescueScreen';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,6 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type UserScreen = 'home' | 'track';
 
 export default function CitizenHome() {
+  const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
   const [currentScreen, setCurrentScreen] = useState<UserScreen>('home');
   //   const user = useAuthStore((s) => s.user);
@@ -69,7 +71,7 @@ export default function CitizenHome() {
 
             {/* Status */}
             <View className="mt-3 flex-row items-center gap-2 rounded-lg bg-blue-50 p-3">
-              <Ionicons name="car" size={20} color="#137fec" />
+              <Ionicons name="car" size={20} color="#DA251D" />
               <Text className="flex-1 text-sm font-medium text-primary">
                 Đội cứu hộ đang đến - Dự kiến 15 phút
               </Text>
@@ -93,7 +95,7 @@ export default function CitizenHome() {
           <RequestHistoryItem
             id="#003"
             status="Đã hủy"
-            statusColor="gray"
+            statusColor="red"
             type="Chỗ ở"
             date="14/01/2026"
           />
@@ -107,8 +109,16 @@ export default function CitizenHome() {
           <Text className="text-xl font-black text-white">SOS – KHẨN CẤP</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity
+          onPress={() => router.push('/donate')}
+          className="mt-4 h-16 flex-row items-center justify-center gap-3 rounded-xl border border-primary bg-white"
+        >
+          <Ionicons name="heart" size={26} color="#DA251D" />
+          <Text className="text-xl font-black text-primary">ỦNG HỘ CỨU TRỢ</Text>
+        </TouchableOpacity>
+
         <Text className="mt-2 text-center text-xs text-gray-400">
-          Nhấn để gửi tín hiệu khẩn cấp
+          Nhấn để gửi tín hiệu khẩn cấp hoặc đóng góp cứu trợ
         </Text>
       </View>
     </ScrollView>
@@ -124,7 +134,7 @@ function RequestHistoryItem({
 }: {
   id: string;
   status: string;
-  statusColor: 'green' | 'gray';
+  statusColor: 'green' | 'red' | 'gray';
   type: string;
   date: string;
 }) {

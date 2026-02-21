@@ -1,6 +1,6 @@
 import '@/global.css';
 import Header from '@/src/components/header/header';
-import { useThemeStore } from '@/src/store/themeStore';
+import { useTheme } from '@/src/context/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
@@ -11,8 +11,6 @@ interface SettingsScreenProps {
     onBack?: () => void;
 }
 
-const ACCENT_COLOR = '#137fec'; // Màu chủ đạo cố định
-
 export default function SettingsScreen({ onBack }: SettingsScreenProps) {
     const { bottom } = useSafeAreaInsets();
     const [notifications, setNotifications] = useState(true);
@@ -20,13 +18,7 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
     const [vibrationEnabled, setVibrationEnabled] = useState(true);
     const [locationEnabled, setLocationEnabled] = useState(true);
 
-    const { mode, toggleTheme } = useThemeStore();
-    const isDark = mode === 'dark';
-    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
-    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
+    const { colors, isDark, toggleTheme } = useTheme();
 
     useEffect(() => {
         loadSettings();
@@ -59,41 +51,51 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
     };
 
     return (
-        <View className={`flex-1 ${bgClass}`}>
+        <View
+            className="flex-1"
+            style={{ backgroundColor: colors.background }}
+        >
             <Header title="Cài đặt" onBack={onBack} />
 
-
-
             <ScrollView
-                style={{ paddingBottom: bottom + 32 }}
+                contentContainerStyle={{ paddingBottom: bottom + 32 }}
                 className="flex-1"
                 showsVerticalScrollIndicator={false}
             >
                 {/* Appearance Section */}
-                <View className={`mt-4 ${cardBgClass} px-4 py-4`}>
-                    <Text className={`mb-4 text-base font-bold ${textClass}`}>
+                <View
+                    className="mt-4 px-4 py-4"
+                    style={{ backgroundColor: colors.card }}
+                >
+                    <Text className="mb-4 text-base font-bold" style={{ color: colors.text }}>
                         Giao diện
                     </Text>
-                    <View className={`flex-row items-center justify-between border-b ${borderClass} px-0 py-2`}>
+                    <View
+                        className="flex-row items-center justify-between border-b px-0 py-2"
+                        style={{ borderColor: colors.border }}
+                    >
                         <View className="flex-row items-center gap-3">
-                            <View className={`h-10 w-10 items-center justify-center rounded-full ${isDark ? 'bg-gray-700' : 'bg-primary/10'}`}>
-                                <Ionicons name="moon-outline" size={20} color={ACCENT_COLOR} />
+                            <View
+                                className="h-10 w-10 items-center justify-center rounded-full"
+                                style={{ backgroundColor: isDark ? '#374151' : 'rgba(19, 127, 236, 0.1)' }}
+                            >
+                                <Ionicons name="moon-outline" size={20} color={colors.primary} />
                             </View>
-                            <Text className={`text-base font-medium ${textClass}`}>Chế độ tối</Text>
+                            <Text className="text-base font-medium" style={{ color: colors.text }}>Chế độ tối</Text>
                         </View>
                         <Switch
                             value={isDark}
                             onValueChange={toggleTheme}
                             trackColor={{ false: '#e5e7eb', true: '#93c5fd' }}
-                            thumbColor={isDark ? ACCENT_COLOR : '#f4f3f4'}
+                            thumbColor={isDark ? colors.primary : '#f4f3f4'}
                         />
                     </View>
                 </View>
 
                 {/* Notifications Section */}
-                <View className={`mt-4 ${cardBgClass}`}>
+                <View className="mt-4" style={{ backgroundColor: colors.card }}>
                     <View className="px-4 py-3">
-                        <Text className={`text-base font-bold ${textClass}`}>Thông báo</Text>
+                        <Text className="text-base font-bold" style={{ color: colors.text }}>Thông báo</Text>
                     </View>
 
                     <SettingToggle
@@ -105,7 +107,6 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setNotifications(val);
                             saveSettings('notifications', val);
                         }}
-                        isDark={isDark}
                     />
 
                     <SettingToggle
@@ -117,7 +118,6 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setSoundEnabled(val);
                             saveSettings('soundEnabled', val);
                         }}
-                        isDark={isDark}
                     />
 
                     <SettingToggle
@@ -129,14 +129,13 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setVibrationEnabled(val);
                             saveSettings('vibrationEnabled', val);
                         }}
-                        isDark={isDark}
                     />
                 </View>
 
                 {/* Privacy Section */}
-                <View className={`mt-4 ${cardBgClass}`}>
+                <View className="mt-4" style={{ backgroundColor: colors.card }}>
                     <View className="px-4 py-3">
-                        <Text className={`text-base font-bold ${textClass}`}>
+                        <Text className="text-base font-bold" style={{ color: colors.text }}>
                             Quyền riêng tư
                         </Text>
                     </View>
@@ -150,14 +149,13 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                             setLocationEnabled(val);
                             saveSettings('locationEnabled', val);
                         }}
-                        isDark={isDark}
                     />
                 </View>
 
                 {/* App Info Section */}
-                <View className={`mt-4 ${cardBgClass}`}>
+                <View className="mt-4" style={{ backgroundColor: colors.card }}>
                     <View className="px-4 py-3">
-                        <Text className={`text-base font-bold ${textClass}`}>
+                        <Text className="text-base font-bold" style={{ color: colors.text }}>
                             Thông tin ứng dụng
                         </Text>
                     </View>
@@ -166,33 +164,33 @@ export default function SettingsScreen({ onBack }: SettingsScreenProps) {
                         icon="information-circle-outline"
                         title="Phiên bản"
                         value="1.0.0"
-                        isDark={isDark}
                     />
 
                     <SettingItem
                         icon="shield-checkmark-outline"
                         title="Chính sách bảo mật"
                         showArrow
-                        isDark={isDark}
                     />
 
                     <SettingItem
                         icon="document-text-outline"
                         title="Điều khoản sử dụng"
                         showArrow
-                        isDark={isDark}
                     />
                 </View>
 
                 {/* Danger Zone */}
-                <View className={`mt-4 ${cardBgClass}`}>
+                <View className="mt-4" style={{ backgroundColor: colors.card }}>
                     <View className="px-4 py-3">
                         <Text className="text-base font-bold text-red-500">
                             Vùng nguy hiểm
                         </Text>
                     </View>
 
-                    <TouchableOpacity className={`flex-row items-center gap-3 border-b ${borderClass} px-4 py-4`}>
+                    <TouchableOpacity
+                        className="flex-row items-center gap-3 border-b px-4 py-4"
+                        style={{ borderColor: colors.border }}
+                    >
                         <View className="h-10 w-10 items-center justify-center rounded-full bg-red-50">
                             <Ionicons name="trash-outline" size={20} color="#ef4444" />
                         </View>
@@ -219,38 +217,37 @@ function SettingToggle({
     subtitle,
     value,
     onValueChange,
-    isDark,
 }: {
     icon: keyof typeof Ionicons.glyphMap;
     title: string;
     subtitle: string;
     value: boolean;
     onValueChange: (value: boolean) => void;
-    isDark: boolean;
 }) {
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
-    const iconBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
+    const { colors, isDark } = useTheme();
 
     return (
-        <View className={`flex-row items-center justify-between border-b ${borderClass} px-4 py-4`}>
+        <View
+            className="flex-row items-center justify-between border-b px-4 py-4"
+            style={{ borderColor: colors.border }}
+        >
             <View className="flex-row flex-1 items-center gap-3">
                 <View
-                    className={`h-10 w-10 items-center justify-center rounded-full ${iconBg}`}
+                    className="h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: isDark ? '#374151' : 'rgba(19, 127, 236, 0.1)' }}
                 >
-                    <Ionicons name={icon} size={20} color={ACCENT_COLOR} />
+                    <Ionicons name={icon} size={20} color={colors.primary} />
                 </View>
                 <View className="flex-1">
-                    <Text className={`text-base font-medium ${textClass}`}>{title}</Text>
-                    <Text className={`text-xs ${subTextClass}`}>{subtitle}</Text>
+                    <Text className="text-base font-medium" style={{ color: colors.text }}>{title}</Text>
+                    <Text className="text-xs" style={{ color: colors.textSecondary }}>{subtitle}</Text>
                 </View>
             </View>
             <Switch
                 value={value}
                 onValueChange={onValueChange}
                 trackColor={{ false: '#e5e7eb', true: '#93c5fd' }}
-                thumbColor={value ? ACCENT_COLOR : '#f4f3f4'}
+                thumbColor={value ? colors.primary : '#f4f3f4'}
             />
         </View>
     );
@@ -261,28 +258,29 @@ function SettingItem({
     title,
     value,
     showArrow,
-    isDark,
 }: {
     icon: keyof typeof Ionicons.glyphMap;
     title: string;
     value?: string;
     showArrow?: boolean;
-    isDark: boolean;
 }) {
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
-    const iconBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
+    const { colors, isDark } = useTheme();
 
     return (
-        <TouchableOpacity className={`flex-row items-center justify-between border-b ${borderClass} px-4 py-4`}>
+        <TouchableOpacity
+            className="flex-row items-center justify-between border-b px-4 py-4"
+            style={{ borderColor: colors.border }}
+        >
             <View className="flex-row items-center gap-3">
-                <View className={`h-10 w-10 items-center justify-center rounded-full ${iconBg}`}>
-                    <Ionicons name={icon} size={20} color={ACCENT_COLOR} />
+                <View
+                    className="h-10 w-10 items-center justify-center rounded-full"
+                    style={{ backgroundColor: isDark ? '#374151' : 'rgba(19, 127, 236, 0.1)' }}
+                >
+                    <Ionicons name={icon} size={20} color={colors.primary} />
                 </View>
-                <Text className={`text-base font-medium ${textClass}`}>{title}</Text>
+                <Text className="text-base font-medium" style={{ color: colors.text }}>{title}</Text>
             </View>
-            {value && <Text className={`text-sm ${subTextClass}`}>{value}</Text>}
+            {value && <Text className="text-sm" style={{ color: colors.textSecondary }}>{value}</Text>}
             {showArrow && <Ionicons name="chevron-forward" size={20} color={isDark ? '#9ca3af' : '#6b7280'} />}
         </TouchableOpacity>
     );

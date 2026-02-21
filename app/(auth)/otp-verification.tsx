@@ -80,7 +80,7 @@ export default function OTPScreen() {
           <View className="flex-1 items-center px-6 pt-10">
             {/* Icon */}
             <View className="mb-6 h-20 w-20 items-center justify-center rounded-full bg-primary/10">
-              <Ionicons name="lock-closed-outline" size={40} color="#2666e7" />
+              <Ionicons name="lock-closed-outline" size={40} color="#1565C0" />
             </View>
 
             {/* Title */}
@@ -126,9 +126,8 @@ export default function OTPScreen() {
                 onPress={() => setCounter(30)}
               >
                 <Text
-                  className={`text-sm font-medium ${
-                    counter > 0 ? 'text-text-secondary' : 'text-primary'
-                  }`}
+                  className={`text-sm font-medium ${counter > 0 ? 'text-text-secondary' : 'text-primary'
+                    }`}
                 >
                   Gửi lại {counter > 0 && `(00:${counter})`}
                 </Text>

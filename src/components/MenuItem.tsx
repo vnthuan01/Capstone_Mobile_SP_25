@@ -20,7 +20,7 @@ export default function MenuItem({
     const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
     const borderClass = isDark ? 'border-gray-700' : 'border-gray-100';
     const iconBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
-    const accentColor = '#137fec';
+    const accentColor = '#DA251D';
 
     return (
         <TouchableOpacity

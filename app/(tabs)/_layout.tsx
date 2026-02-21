@@ -1,5 +1,5 @@
+import { useTheme } from '@/src/context/ThemeContext';
 import { useAuthStore } from '@/src/store/authStore';
-import { useThemeStore } from '@/src/store/themeStore';
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import { useEffect, useRef } from 'react';
@@ -11,17 +11,17 @@ const ICON_SIZE = 24;
 export default function TabsLayout() {
   const user = useAuthStore((s) => s.user);
   const isVolunteer = user?.role === 'Volunteer';
-  const { mode } = useThemeStore();
-  const isDark = mode === 'dark';
+  /* ================= THEME ================= */
+  const { colors, isDark } = useTheme();
 
   const scale = useRef(new Animated.Value(1)).current;
   const opacity = useRef(new Animated.Value(0.6)).current;
 
-  // Theme Colors
-  const activeColor = '#137fec';
-  const inactiveColor = isDark ? '#9ca3af' : '#64748b'; // gray-400 : slate-500
-  const tabBgColor = isDark ? '#1f2937' : '#ffffff'; // gray-800 : white
-  const borderColor = isDark ? '#374151' : '#e2e8f0'; // gray-700 : slate-200
+  // Theme Colors from Context
+  const activeColor = colors.primary;
+  const inactiveColor = colors.textSecondary;
+  const tabBgColor = colors.card;
+  const borderColor = colors.border;
 
   /* ================= COMMON OPTIONS ================= */
   const screenOptions = {
@@ -150,7 +150,7 @@ export default function TabsLayout() {
                   height: 56,
                   borderRadius: 28,
                   borderWidth: 2,
-                  borderColor: '#137fec',
+                  borderColor: colors.primary,
                   transform: [{ scale }],
                   opacity,
                 }}
@@ -162,16 +162,16 @@ export default function TabsLayout() {
                   width: 56,
                   height: 56,
                   borderRadius: 28,
-                  backgroundColor: '#137fec',
+                  backgroundColor: colors.primary,
                   justifyContent: 'center',
                   alignItems: 'center',
-                  shadowColor: '#137fec',
+                  shadowColor: colors.primary,
                   shadowOffset: { width: 0, height: 4 },
                   shadowOpacity: 0.35,
                   shadowRadius: 8,
                   elevation: 10,
                   borderWidth: 4,
-                  borderColor: isDark ? '#1f2937' : '#ffffff',
+                  borderColor: isDark ? colors.card : '#ffffff',
                 }}
               >
                 <Ionicons name="add" size={32} color="#fff" />

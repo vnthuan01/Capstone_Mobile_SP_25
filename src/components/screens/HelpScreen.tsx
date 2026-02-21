@@ -199,7 +199,7 @@ export default function HelpScreen({ onBack }: HelpScreenProps) {
                             {/* Step Content */}
                             <View className="flex-1 pb-4">
                                 <View className="mb-2 flex-row items-center gap-2">
-                                    <Ionicons name={step.icon} size={18} color="#137fec" />
+                                    <Ionicons name={step.icon} size={18} color="#DA251D" />
                                     <Text className="text-base font-bold">{step.title}</Text>
                                 </View>
                                 <Text className="text-sm leading-5 text-gray-600">
@@ -251,7 +251,7 @@ export default function HelpScreen({ onBack }: HelpScreenProps) {
 
                     <TouchableOpacity className="mb-3 flex-row items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4">
                         <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <Ionicons name="mail-outline" size={20} color="#137fec" />
+                            <Ionicons name="mail-outline" size={20} color="#DA251D" />
                         </View>
                         <View className="flex-1">
                             <Text className="text-base font-medium">Email hỗ trợ</Text>
@@ -262,7 +262,7 @@ export default function HelpScreen({ onBack }: HelpScreenProps) {
 
                     <TouchableOpacity className="flex-row items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 p-4">
                         <View className="h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <Ionicons name="call-outline" size={20} color="#137fec" />
+                            <Ionicons name="call-outline" size={20} color="#DA251D" />
                         </View>
                         <View className="flex-1">
                             <Text className="text-base font-medium">Hotline</Text>

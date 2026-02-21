@@ -1,10 +1,12 @@
 import '@/global.css';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Animated,
+  Easing,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -22,6 +24,27 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const scale = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(scale, {
+          toValue: 1.2,
+          duration: 500,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scale, {
+          toValue: 1,
+          duration: 500,
+          easing: Easing.ease,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, []);
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
@@ -69,6 +92,37 @@ export default function LoginScreen() {
             <View className="mb-4 h-20 w-20 items-center justify-center rounded-full bg-primary">
               <Ionicons name="shield-checkmark" size={40} color="#ffffff" />
             </View>
+            <View className="absolute right-0 top-0">
+              <TouchableOpacity
+                onPress={() => router.push('/donate')}
+                className="flex-row items-center px-3 h-14 rounded-full border border-surface-dark bg-white"
+                style={{
+                  shadowColor: '#ff4a4aff',
+                  shadowOffset: { width: 0, height: 4 },
+                  shadowOpacity: 0.2,
+                  shadowRadius: 6,
+                  elevation: 5,
+                }}
+              >
+                <Animated.View style={{ transform: [{ scale }] }}>
+                  <Ionicons name="heart-outline" size={20} color="#DA251D" className='mt-1' />
+                </Animated.View>
+
+                {/* Label che border */}
+                <View className="px-1 bg-white">
+                  <Text className="text-sm font-bold text-[#DA251D]">
+                    Donation
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <TouchableOpacity
+              onPress={() => router.push('/hotline')}
+              className="flex-row items-center gap-1 rounded-full bg-red-50 px-3 py-1.5"
+            >
+              <Ionicons name="alert-circle" size={18} color="#dc2626" />
+              <Text className="text-sm font-bold text-red-600">Cần hỗ trợ ngay lập tức!</Text>
+            </TouchableOpacity>
 
             <Text className="text-[32px] font-bold text-text-primary">
               Đăng nhập
@@ -138,9 +192,8 @@ export default function LoginScreen() {
 
             {/* Login Button */}
             <TouchableOpacity
-              className={`mt-4 h-12 items-center justify-center rounded-xl ${
-                loading ? 'bg-primary/50' : 'bg-primary'
-              }`}
+              className={`mt-4 h-12 items-center justify-center rounded-xl ${loading ? 'bg-primary/50' : 'bg-primary'
+                }`}
               onPress={handleLogin}
               disabled={loading}
             >

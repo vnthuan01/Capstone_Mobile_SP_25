@@ -1,20 +1,19 @@
 import RequestsScreen from '@/app/(tabs)/requests/index';
 import TasksListScreen from '@/app/(tabs)/tasks/index';
 import '@/global.css';
-import MenuItem from '@/src/components/MenuItem';
+import CitizenProfile from '@/src/components/profile/CitizenProfile';
+import VolunteerProfile from '@/src/components/profile/VolunteerProfile';
 import HelpScreen from '@/src/components/screens/HelpScreen';
 import SettingsScreen from '@/src/components/screens/SettingsScreen';
+import { useTheme } from '@/src/context/ThemeContext';
 import { useAuthStore } from '@/src/store/authStore';
-import { useThemeStore } from '@/src/store/themeStore';
-import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type ProfileScreenType = 'profile' | 'requests' | 'tasks' | 'settings' | 'help';
 
-const ACCENT_COLOR = '#137fec';
+const ACCENT_COLOR = '#DA251D';
 
 export default function ProfileScreen() {
     const { top, bottom } = useSafeAreaInsets();
@@ -25,13 +24,12 @@ export default function ProfileScreen() {
     const [currentScreen, setCurrentScreen] = useState<ProfileScreenType>('profile');
 
     // Theme logic
-    const { mode } = useThemeStore();
-    const isDark = mode === 'dark';
-    const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light';
-    const cardBgClass = isDark ? 'bg-gray-800' : 'bg-white';
-    const textClass = isDark ? 'text-white' : 'text-gray-800';
-    const subTextClass = isDark ? 'text-gray-400' : 'text-text-secondary';
-    const headerBg = isDark ? 'bg-gray-700' : 'bg-primary/10';
+    // Theme logic
+    const { colors, isDark } = useTheme();
+    // Helper to keep some compatibility or we just use styles directly
+    // const bgClass = isDark ? 'bg-gray-900' : 'bg-background-light'; // Replacing with style
+    const headerBg = isDark ? 'bg-gray-700' : 'bg-primary/10'; // Keep for now or refactor
+
 
     useEffect(() => {
         if (params.view) {
@@ -66,106 +64,10 @@ export default function ProfileScreen() {
 
     const isVolunteer = user?.role === 'Volunteer';
 
-    return (
-        <View className={`flex-1 relative ${bgClass}`}>
-
-            <ScrollView
-                style={{
-                    paddingTop: top,
-                    paddingBottom: bottom + 88,
-                }}
-                className="flex-1"
-                showsVerticalScrollIndicator={false}
-            >
-                {/* Header */}
-                <View className={`${cardBgClass} px-4 py-6 shadow-sm`}>
-                    <View className="items-center">
-                        <View
-                            className={`mb-4 h-24 w-24 items-center justify-center rounded-full ${headerBg}`}
-                        >
-                            <Ionicons name="person" size={48} color={ACCENT_COLOR} />
-                        </View>
-                        <Text className={`text-2xl font-bold ${textClass}`}>{user?.full_name}</Text>
-                        <Text className={`mt-1 text-sm ${subTextClass}`}>
-                            {user?.email}
-                        </Text>
-                        <View
-                            className={`mt-2 rounded-full px-3 py-1 ${headerBg}`}
-                        >
-                            <Text
-                                className="text-sm font-medium"
-                                style={{ color: ACCENT_COLOR }}
-                            >
-                                {isVolunteer ? 'Tình nguyện viên' : 'Người dùng'}
-                            </Text>
-                        </View>
-                    </View>
-                </View>
-
-                {/* Menu */}
-                <View className={`mt-4 ${cardBgClass}`}>
-                    {isVolunteer ? (
-                        <MenuItem
-                            icon="clipboard-outline"
-                            title="Theo dõi nhiệm vụ"
-                            subtitle="Xem và cập nhật trạng thái nhiệm vụ"
-                            onPress={() => setCurrentScreen('tasks')}
-                            isDark={isDark}
-                        />
-                    ) : (
-                        <MenuItem
-                            icon="document-text-outline"
-                            title="Theo dõi yêu cầu"
-                            subtitle="Xem trạng thái yêu cầu cứu trợ của bạn"
-                            onPress={() => setCurrentScreen('requests')}
-                            isDark={isDark}
-                        />
-                    )}
-                </View>
-
-                <View className={`mt-4 ${cardBgClass}`}>
-                    <MenuItem
-                        icon="person-outline"
-                        title="Thông tin cá nhân"
-                        onPress={() => { }}
-                        isDark={isDark}
-                    />
-                    <MenuItem
-                        icon="notifications-outline"
-                        title="Thông báo"
-                        onPress={() => { }}
-                        isDark={isDark}
-                    />
-                    <MenuItem
-                        icon="settings-outline"
-                        title="Cài đặt"
-                        onPress={() => setCurrentScreen('settings')}
-                        isDark={isDark}
-                    />
-                    <MenuItem
-                        icon="help-circle-outline"
-                        title="Trợ giúp"
-                        onPress={() => setCurrentScreen('help')}
-                        isDark={isDark}
-                    />
-                </View>
-            </ScrollView>
-
-            {/* LOGOUT FIXED */}
-            <View
-                style={{ paddingBottom: bottom + 16 }}
-                className={`absolute bottom-0 left-0 right-0 border-t ${isDark ? 'border-gray-800 bg-gray-900' : 'border-gray-100 bg-white/80'} px-4 pt-4`}
-            >
-                <TouchableOpacity
-                    onPress={handleLogout}
-                    className={`flex-row items-center justify-center gap-2 rounded-xl border ${isDark ? 'border-red-900 bg-gray-800' : 'border-red-200 bg-white'} py-3`}
-                >
-                    <Ionicons name="log-out-outline" size={20} color="#ef4444" />
-                    <Text className="font-bold text-red-500">Đăng xuất</Text>
-                </TouchableOpacity>
-            </View>
-
-        </View>
+    return isVolunteer ? (
+        <VolunteerProfile onLogout={handleLogout} onNavigate={(s) => setCurrentScreen(s)} />
+    ) : (
+        <CitizenProfile onLogout={handleLogout} onNavigate={(s) => setCurrentScreen(s)} />
     );
 }
 
