@@ -7,7 +7,7 @@ interface CitizenProfileProps {
     onEdit?: () => void;
     onBack?: () => void;
     onLogout?: () => void;
-    onNavigate?: (screen: 'profile' | 'requests' | 'tasks' | 'settings' | 'help') => void;
+    onNavigate?: (screen: 'profile' | 'requests' | 'tasks' | 'settings' | 'help' | 'change-password') => void;
 }
 
 export default function CitizenProfile({ onEdit, onBack, onLogout, onNavigate }: CitizenProfileProps) {
@@ -111,7 +111,9 @@ export default function CitizenProfile({ onEdit, onBack, onLogout, onNavigate }:
                         </Text>
                         <View className="overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm dark:border-gray-800 dark:bg-[#1C252E]">
                             <View className="flex-col divide-y divide-gray-100 dark:divide-gray-800">
-                                <TouchableOpacity className="group flex-row items-center gap-4 p-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5">
+                                <TouchableOpacity
+                                    onPress={() => onNavigate?.('change-password')}
+                                    className="group flex-row items-center gap-4 p-4 transition-colors hover:bg-gray-50 dark:hover:bg-white/5">
                                     <View className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700">
                                         <Ionicons name="lock-closed" size={20} className="text-[#424242] dark:text-gray-300" color="currentColor" />
                                     </View>

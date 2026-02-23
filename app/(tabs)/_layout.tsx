@@ -10,7 +10,11 @@ const ICON_SIZE = 24;
 
 export default function TabsLayout() {
   const user = useAuthStore((s) => s.user);
-  const isVolunteer = user?.role === 'Volunteer';
+  const fakeUser = {
+    ...user,
+    role: 'Volunteer',
+  };
+  const isVolunteer = fakeUser?.role === 'Volunteer';
   /* ================= THEME ================= */
   const { colors, isDark } = useTheme();
 

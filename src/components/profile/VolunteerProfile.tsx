@@ -8,7 +8,7 @@ interface VolunteerProfileProps {
     onEdit?: () => void;
     onBack?: () => void;
     onLogout?: () => void;
-    onNavigate?: (screen: 'profile' | 'requests' | 'tasks' | 'settings' | 'help') => void;
+    onNavigate?: (screen: 'profile' | 'requests' | 'tasks' | 'settings' | 'help' | 'change-password' | 'progress-rescue' | 'progress-relief' | 'dashboard-leader' | 'report-leader') => void;
 }
 
 export default function VolunteerProfile({ onEdit, onBack, onLogout, onNavigate }: VolunteerProfileProps) {
@@ -305,6 +305,78 @@ export default function VolunteerProfile({ onEdit, onBack, onLogout, onNavigate 
                             </TouchableOpacity>
 
                             <TouchableOpacity
+                                onPress={() => onNavigate?.('progress-rescue')}
+                                className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
+                            >
+                                <View className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-red-50 dark:bg-red-900/20">
+                                    <Ionicons name="boat" size={18} color="#DA251D" />
+                                </View>
+                                <View className="flex-1">
+                                    <Text className="text-sm font-semibold text-gray-900 dark:text-white">
+                                        Tiến độ cứu hộ
+                                    </Text>
+                                    <Text className="text-xs text-gray-500 dark:text-gray-400">
+                                        Báo cáo tiến độ nhiệm vụ cứu hộ
+                                    </Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => onNavigate?.('progress-relief')}
+                                className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
+                            >
+                                <View className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-orange-50 dark:bg-orange-900/20">
+                                    <Ionicons name="cube" size={18} color="#ea580c" />
+                                </View>
+                                <View className="flex-1">
+                                    <Text className="text-sm font-semibold text-gray-900 dark:text-white">
+                                        Tiến độ cứu trợ
+                                    </Text>
+                                    <Text className="text-xs text-gray-500 dark:text-gray-400">
+                                        Báo cáo tiến độ phân phối hàng cứu trợ
+                                    </Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => onNavigate?.('dashboard-leader')}
+                                className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
+                            >
+                                <View className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-900/20">
+                                    <Ionicons name="people" size={18} color="#1565C0" />
+                                </View>
+                                <View className="flex-1">
+                                    <Text className="text-sm font-semibold text-gray-900 dark:text-white">
+                                        Dashboard nhóm trưởng
+                                    </Text>
+                                    <Text className="text-xs text-gray-500 dark:text-gray-400">
+                                        Quản lý nhóm và phân công nhiệm vụ
+                                    </Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => onNavigate?.('report-leader')}
+                                className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
+                            >
+                                <View className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-green-50 dark:bg-green-900/20">
+                                    <Ionicons name="stats-chart" size={18} color="#16a34a" />
+                                </View>
+                                <View className="flex-1">
+                                    <Text className="text-sm font-semibold text-gray-900 dark:text-white">
+                                        Báo cáo tổng hợp
+                                    </Text>
+                                    <Text className="text-xs text-gray-500 dark:text-gray-400">
+                                        Gửi báo cáo tổng hợp của nhóm
+                                    </Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
                                 onPress={() => onNavigate?.('requests')}
                                 className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
                             >
@@ -317,6 +389,24 @@ export default function VolunteerProfile({ onEdit, onBack, onLogout, onNavigate 
                                     </Text>
                                     <Text className="text-xs text-gray-500 dark:text-gray-400">
                                         Xem trạng thái yêu cầu của bạn
+                                    </Text>
+                                </View>
+                                <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => onNavigate?.('change-password')}
+                                className="flex-row items-center gap-4 border-b border-gray-50 p-4 dark:border-gray-800/50"
+                            >
+                                <View className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gray-50 dark:bg-gray-800">
+                                    <Ionicons name="lock-closed" size={18} color="#1565C0" />
+                                </View>
+                                <View className="flex-1">
+                                    <Text className="text-sm font-semibold text-gray-900 dark:text-white">
+                                        Đổi mật khẩu
+                                    </Text>
+                                    <Text className="text-xs text-gray-500 dark:text-gray-400">
+                                        Cập nhật mật khẩu bảo mật
                                     </Text>
                                 </View>
                                 <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
@@ -365,7 +455,7 @@ export default function VolunteerProfile({ onEdit, onBack, onLogout, onNavigate 
                         </TouchableOpacity>
                     </View>
                 </View>
-            </ScrollView>
-        </View>
+            </ScrollView >
+        </View >
     );
 }

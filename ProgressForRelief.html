@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="light" lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cập nhật Tiến độ &amp; SOS Mới</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#DA251D",
+                        "brand-blue": "#1565C0",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white overflow-x-hidden antialiased">
+    <div class="relative flex h-full min-h-screen w-full flex-col pb-32">
+        <div
+            class="sticky top-0 z-10 flex items-center bg-primary dark:bg-[#1A2633] p-4 pb-2 justify-between shadow-md">
+            <button
+                class="flex size-10 shrink-0 items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                <span class="material-symbols-outlined text-white" style="font-size: 24px;">arrow_back_ios_new</span>
+            </button>
+            <h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">Cập nhật
+                tiến độ</h2>
+        </div>
+        <div class="p-4 pb-0">
+            <div
+                class="flex items-stretch justify-between gap-4 rounded-xl bg-white dark:bg-[#1A2633] p-4 shadow-sm border border-[#e5e7eb] dark:border-gray-700">
+                <div class="flex flex-col justify-center gap-1 flex-[2_2_0px]">
+                    <div class="inline-flex items-center gap-2 mb-1">
+                        <span
+                            class="bg-red-50 text-primary dark:bg-red-900/30 dark:text-red-200 text-xs font-bold px-2 py-0.5 rounded border border-red-100 dark:border-red-900/50">CỨU
+                            TRỢ KHẨN CẤP</span>
+                    </div>
+                    <p class="text-[#111418] dark:text-white text-base font-bold leading-tight">#RELIEF-204</p>
+                    <p class="text-[#617589] dark:text-gray-400 text-sm font-normal leading-normal">Nguyễn Văn A - Xã
+                        Lộc Yên</p>
+                    <div class="flex items-center gap-1 mt-1 text-brand-blue dark:text-blue-300">
+                        <span class="material-symbols-outlined text-sm">location_on</span>
+                        <span class="text-xs font-medium">Cách đây 2.5km</span>
+                    </div>
+                </div>
+                <div class="w-24 h-24 bg-center bg-no-repeat bg-cover rounded-lg flex-none border-2 border-brand-blue/10 dark:border-gray-700 shadow-sm"
+                    data-alt="Map showing relief delivery location in Vietnam" data-location="Lộc Yên, Vietnam"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiE2FpzUdOqh9sfCMUJ6lN_YOL5iDSz-QaNFjHSI-WHOp-Mo_LHLSbH6_6bRaJqC86PpCNzAHBmwLXjGBdCimNICzczFO2gDrXMNBjWPyFnIGvo59mF7oQbPKWHgXPdphoiTW9waZbRcy5_To9Kuu1pezrgXdoCVdrAFDg_HIig3DFBEUP1eVUWnd68w2-Ylctd6IaXmyjiACyE0QmRKJSBdJO4w6izQ98TvvlYRB-2brEcBgWr6ZBT3TgRQ5JeNN3f7IjDsP0nOA");'>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="px-4 pt-6">
+                <div class="bg-gray-100 dark:bg-gray-800 p-1 rounded-lg flex gap-1">
+                    <button
+                        class="flex-1 py-2 px-3 rounded-md bg-white dark:bg-[#1A2633] shadow-sm text-sm font-bold text-brand-blue border border-gray-200 dark:border-gray-600">Cứu
+                        trợ (Relief)</button>
+                    <button
+                        class="flex-1 py-2 px-3 rounded-md text-gray-500 dark:text-gray-400 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">Cứu
+                        hộ (Rescue)</button>
+                </div>
+            </div>
+            <h3
+                class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight px-4 text-left pb-3 pt-6">
+                Trạng thái hiện tại</h3>
+            <div class="flex flex-col gap-3 px-4"
+                style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(21,101,192)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');">
+                <label
+                    class="group relative flex items-center gap-4 rounded-xl border border-solid border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 cursor-pointer hover:border-brand-blue transition-all has-[:checked]:border-brand-blue has-[:checked]:ring-1 has-[:checked]:ring-brand-blue has-[:checked]:bg-blue-50/50 dark:has-[:checked]:bg-blue-900/10">
+                    <input checked=""
+                        class="peer h-5 w-5 border-2 border-[#dbe0e6] dark:border-gray-500 bg-transparent text-transparent checked:border-brand-blue checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        name="status_update" type="radio" />
+                    <div
+                        class="flex items-center justify-center size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-brand-blue shrink-0">
+                        <span class="material-symbols-outlined">local_shipping</span>
+                    </div>
+                    <div class="flex grow flex-col">
+                        <p class="text-[#111418] dark:text-white text-sm font-bold leading-normal">Đang di chuyển</p>
+                        <p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal">Đang trên đường
+                            tới điểm hỗ trợ</p>
+                    </div>
+                </label>
+                <label
+                    class="group relative flex items-center gap-4 rounded-xl border border-solid border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 cursor-pointer hover:border-blue-500 transition-all has-[:checked]:border-blue-500 has-[:checked]:ring-1 has-[:checked]:ring-blue-500 has-[:checked]:bg-blue-50/50 dark:has-[:checked]:bg-blue-900/10">
+                    <input
+                        class="peer h-5 w-5 border-2 border-[#dbe0e6] dark:border-gray-500 bg-transparent text-transparent checked:border-blue-500 checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        name="status_update"
+                        style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(59,130,246)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');"
+                        type="radio" />
+                    <div
+                        class="flex items-center justify-center size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 shrink-0">
+                        <span class="material-symbols-outlined">timelapse</span>
+                    </div>
+                    <div class="flex grow flex-col">
+                        <p class="text-[#111418] dark:text-white text-sm font-bold leading-normal">Đang tiến hành</p>
+                        <p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal">Đang thực hiện
+                            công tác cứu trợ</p>
+                    </div>
+                </label>
+                <label
+                    class="group relative flex items-center gap-4 rounded-xl border border-solid border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 cursor-pointer hover:border-green-600 transition-all has-[:checked]:border-green-600 has-[:checked]:ring-1 has-[:checked]:ring-green-600 has-[:checked]:bg-green-50/50 dark:has-[:checked]:bg-green-900/10">
+                    <input
+                        class="peer h-5 w-5 border-2 border-[#dbe0e6] dark:border-gray-500 bg-transparent text-transparent checked:border-green-600 checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        name="status_update"
+                        style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(22,163,74)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');"
+                        type="radio" />
+                    <div
+                        class="flex items-center justify-center size-10 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 shrink-0">
+                        <span class="material-symbols-outlined">check_circle</span>
+                    </div>
+                    <div class="flex grow flex-col">
+                        <p class="text-[#111418] dark:text-white text-sm font-bold leading-normal">Đã phân phát hàng
+                            xong</p>
+                        <p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal">Hoàn thành nhiệm
+                            vụ cứu trợ</p>
+                    </div>
+                </label>
+                <label
+                    class="group relative flex items-center gap-4 rounded-xl border border-solid border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 cursor-pointer hover:border-orange-500 transition-all has-[:checked]:border-orange-500 has-[:checked]:ring-1 has-[:checked]:ring-orange-500 has-[:checked]:bg-orange-50/50 dark:has-[:checked]:bg-orange-900/10">
+                    <input
+                        class="peer h-5 w-5 border-2 border-[#dbe0e6] dark:border-gray-500 bg-transparent text-transparent checked:border-orange-500 checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        name="status_update"
+                        style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(249,115,22)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');"
+                        type="radio" />
+                    <div
+                        class="flex items-center justify-center size-10 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 shrink-0">
+                        <span class="material-symbols-outlined">warning</span>
+                    </div>
+                    <div class="flex grow flex-col">
+                        <p class="text-[#111418] dark:text-white text-sm font-bold leading-normal">Bị gián đoạn</p>
+                        <p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal">Gặp chướng ngại
+                            vật, tắc đường...</p>
+                    </div>
+                </label>
+                <label
+                    class="group relative flex items-center gap-4 rounded-xl border border-solid border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 cursor-pointer hover:border-red-600 transition-all has-[:checked]:border-red-600 has-[:checked]:ring-1 has-[:checked]:ring-red-600 has-[:checked]:bg-red-50/50 dark:has-[:checked]:bg-red-900/10">
+                    <input
+                        class="peer h-5 w-5 border-2 border-[#dbe0e6] dark:border-gray-500 bg-transparent text-transparent checked:border-red-600 checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        name="status_update"
+                        style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(220,38,38)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e');"
+                        type="radio" />
+                    <div
+                        class="flex items-center justify-center size-10 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 shrink-0">
+                        <span class="material-symbols-outlined">cancel</span>
+                    </div>
+                    <div class="flex grow flex-col">
+                        <p class="text-[#111418] dark:text-white text-sm font-bold leading-normal">Thất bại</p>
+                        <p class="text-[#617589] dark:text-gray-400 text-xs font-normal leading-normal">Không thể tiếp
+                            cận hoặc hết hàng</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="px-4 pt-6">
+            <h3 class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight text-left pb-3">
+                Trường hợp phát sinh</h3>
+            <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
+                <div class="flex gap-3 items-start">
+                    <span class="material-symbols-outlined text-primary mt-1">add_location_alt</span>
+                    <div>
+                        <p class="text-[#111418] dark:text-white text-sm font-bold mb-1">Phát hiện người cần cứu hộ?</p>
+                        <p class="text-[#617589] dark:text-gray-300 text-xs mb-3">Nếu bạn phát hiện thêm người bị mắc
+                            kẹt hoặc cần trợ giúp khẩn cấp tại vị trí này, hãy đánh dấu ngay.</p>
+                        <button
+                            class="flex items-center justify-center gap-2 rounded-lg bg-primary text-white px-4 py-2.5 w-full shadow-sm hover:bg-red-700 transition-colors active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-sm">sos</span>
+                            <span class="text-sm font-bold">Đánh dấu SOS mới</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3
+                class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight px-4 text-left pb-3 pt-6">
+                Hình ảnh chứng thực</h3>
+            <div class="px-4">
+                <div class="flex gap-3 overflow-x-auto no-scrollbar pb-2">
+                    <button
+                        class="shrink-0 flex flex-col items-center justify-center w-28 h-28 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 bg-white dark:bg-[#1A2633] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group">
+                        <span
+                            class="material-symbols-outlined text-brand-blue text-3xl mb-1 group-hover:scale-110 transition-transform">add_a_photo</span>
+                        <span class="text-xs font-medium text-brand-blue">Thêm ảnh</span>
+                    </button>
+                    <div
+                        class="relative shrink-0 w-28 h-28 rounded-xl bg-gray-100 overflow-hidden group border border-gray-200 dark:border-gray-700">
+                        <img alt="Volunteers handing out relief packages" class="w-full h-full object-cover"
+                            data-alt="Volunteers handing out relief packages"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSGeQScuvKkQwWM16wR1IwzlXlYH5Dlj2JRvymsIJofZOZh9LKmqeB4G58haEnGS7t6rNqhjflmSZA8PoMW9RjWGomNQ6kjeh_MycHHZPi8Ck4vJxe4gb1Z-CaF3zfjLFU5MZI42n--FR-Xm1uM7LP6PfnSaAbz0m0GlTf3lkQ6yvCY1tjtst3jAJhN0rktrvLuwchPqYS4BNYtG2YcDA26rouODcXOXBk4nVbCBk84XuALYlGcpFSGq6nfhvRaEDZRMoftY4ieX4" />
+                        <button
+                            class="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span class="material-symbols-outlined text-xs">close</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <h3
+                class="text-[#111418] dark:text-white tracking-tight text-lg font-bold leading-tight px-4 text-left pb-3 pt-4">
+                Ghi chú</h3>
+            <div class="px-4">
+                <textarea
+                    class="w-full min-h-[120px] rounded-xl border border-[#dbe0e6] dark:border-gray-700 bg-white dark:bg-[#1A2633] p-4 text-sm text-[#111418] dark:text-white placeholder-[#617589] dark:placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-brand-blue focus:border-brand-blue resize-none transition-all shadow-sm"
+                    placeholder="Nhập tình trạng đường đi, lý do thất bại hoặc ghi chú thêm (tùy chọn)..."></textarea>
+            </div>
+        </div>
+        <div class="h-8"></div>
+    </div>
+    <div
+        class="fixed bottom-0 left-0 right-0 z-20 bg-white dark:bg-[#1A2633] border-t border-[#e5e7eb] dark:border-gray-700 p-4 pb-8 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+        <button
+            class="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-blue px-4 py-3.5 text-white shadow-lg shadow-blue-900/20 hover:bg-blue-800 transition-all active:scale-[0.98]">
+            <span class="text-base font-bold tracking-tight">Cập nhật trạng thái</span>
+            <span class="material-symbols-outlined text-sm">send</span>
+        </button>
+    </div>
+
+</body>
+
+</html>

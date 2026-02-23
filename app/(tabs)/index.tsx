@@ -12,8 +12,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 export default function IndexScreen() {
     const { top, bottom } = useSafeAreaInsets();
     const user = useAuthStore((s) => s.user);
+    const fakeUser = {
+        ...user,
+        role: 'Volunteer',
+    };
     const { colors, isDark } = useTheme();
-    const isVolunteer = user?.role === 'Volunteer';
+    const isVolunteer = fakeUser?.role === 'Volunteer';
 
     const STICKY_HEIGHT = 88; // chiều cao khu SOS
     const iconWrapperBg = isDark ? 'bg-gray-700' : 'bg-gray-100'; // Keep or refactor to style if specific color needed

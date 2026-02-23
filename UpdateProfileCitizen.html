@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Cập nhật hồ sơ (Người dân)</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#DA251D",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+    <header class="sticky top-0 z-10 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+        <div class="flex items-center p-4">
+            <button
+                class="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300">
+                <span class="material-symbols-outlined">arrow_back</span>
+            </button>
+            <h1 class="flex-1 text-center text-lg font-bold tracking-tight pr-10">Cập nhật hồ sơ</h1>
+        </div>
+    </header>
+    <main class="flex-1 overflow-y-auto pb-24">
+        <div class="p-6 flex flex-col items-center">
+            <div class="relative group">
+                <div
+                    class="w-32 h-32 rounded-full border-4 border-white dark:border-slate-800 shadow-lg overflow-hidden bg-slate-200 dark:bg-slate-700">
+                    <img alt="Ảnh đại diện người dùng" class="w-full h-full object-cover"
+                        data-alt="Ảnh chân dung đại diện người dân"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmE9jnZy7wlefl8BLwjKnI-nKEi6nl1VXgiXpsE5NkwpcaNRCf94p4VWnFjIiMn9BTf-TijSMfTvZ9a08rHVqceXPWQv2jhFEm54vO86UMM71lMxicvwBTCCMkrCK89mQK6b57Y20mubWahofMmHGGJfsiAwcNIZehShHAs5MLYxnwnaL1ISA5v3HEFK0ftNsnhmSWI4SRA1j8VQVi5tc-0Ah9w7VzmKhDGoJ_Y_sRjWaELu6TA7cJzEisT-Qw8CvZZDRaxT_8ICk" />
+                </div>
+                <button
+                    class="absolute bottom-1 right-1 bg-primary text-white p-2 rounded-full shadow-md border-2 border-white dark:border-slate-800 hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-sm">photo_camera</span>
+                </button>
+            </div>
+            <div class="mt-4 text-center">
+                <h2 class="text-xl font-bold">Nguyễn Văn An</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Công dân Việt Nam</p>
+            </div>
+        </div>
+        <div class="px-6 space-y-5 max-w-md mx-auto">
+            <div class="space-y-1.5">
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Họ và tên</label>
+                <div class="relative">
+                    <input
+                        class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg h-12 px-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                        placeholder="Nguyễn Văn An" type="text" value="Nguyễn Văn An" />
+                    <span
+                        class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-green-500 text-lg">check_circle</span>
+                </div>
+            </div>
+            <div class="space-y-1.5">
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Email</label>
+                <div class="relative">
+                    <input
+                        class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg h-12 px-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                        placeholder="an.nguyen@example.com" type="email" value="an.nguyen@example.com" />
+                    <span
+                        class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-green-500 text-lg">check_circle</span>
+                </div>
+            </div>
+            <div class="space-y-1.5">
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Số điện thoại</label>
+                <input
+                    class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg h-12 px-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
+                    placeholder="0901 234 567" type="tel" value="0901 234 567" />
+            </div>
+            <div class="space-y-1.5">
+                <label class="text-sm font-semibold text-slate-700 dark:text-slate-300 ml-1">Địa chỉ</label>
+                <textarea
+                    class="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all resize-none"
+                    placeholder="Số 1, Đường Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh"
+                    rows="3">Số 1, Đường Lê Lợi, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</textarea>
+            </div>
+        </div>
+        <div class="p-6 space-y-3 max-w-md mx-auto">
+            <button
+                class="w-full bg-primary hover:bg-primary/90 text-white font-bold h-14 rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95">
+                Cập nhật
+            </button>
+            <button
+                class="w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold h-12 rounded-xl transition-all">
+                Hủy bỏ
+            </button>
+        </div>
+    </main>
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-4 pb-6 pt-2">
+        <div class="max-w-md mx-auto flex justify-around items-center">
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors"
+                href="#">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text-[10px] font-medium">Trang chủ</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors"
+                href="#">
+                <span class="material-symbols-outlined">notifications</span>
+                <span class="text-[10px] font-medium">Thông báo</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-primary" href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+                <span class="text-[10px] font-medium">Hồ sơ</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 hover:text-primary transition-colors"
+                href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="text-[10px] font-medium">Cài đặt</span>
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>
